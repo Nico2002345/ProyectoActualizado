@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Tema general -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorSecondary">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/textPrimary</item>
+        <!-- 🔹 Fuente del sistema por defecto (elimina error de @font/sans_serif) -->
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:windowBackground">@color/backgroundLight</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <!-- Botones Material -->
+    <style name="Widget.Button.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="cornerRadius">10dp</item>
+    </style>
+
+    <!-- Tarjetas -->
+    <style name="Widget.Card.Standard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">5dp</item>
+        <item name="android:background">@color/cardBackground</item>
+    </style>
+
+</resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nombre de la app -->
+    <string name="app_name">IngSoftCalvoProy</string>
+
+    <!-- Login / Registro -->
+    <string name="login_title">Inicio de Sesión</string>
+    <string name="register_title">Registro de Usuario</string>
+    <string name="email_hint">Correo electrónico</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="login_button">Iniciar Sesión</string>
+    <string name="register_button">Registrarse</string>
+    <string name="select_role_prompt">Seleccione un rol</string>
+
+    <!-- Lista de roles para el registro -->
+    <string-array name="roles_array">
+        <item>Usuario</item>
+        <item>Repartidor</item>
+        <item>Funcionario de logística</item>
+        <item>Conductor</item>
+        <item>Destinatario</item>
+        <item>Trabajador</item>
+        <item>Asignador</item>
+        <item>Recolector</item>
+    </string-array>
+
+    <!-- Home -->
+    <string name="home_title">Menú Principal</string>
+    <string name="shipments_button">Ver Envíos</string>
+    <string name="analytics_button">Ver Analíticas</string>
+    <string name="tracking_button">Rastrear Envío</string>
+
+    <!-- Analytics -->
+    <string name="analytics_title">Analíticas del Sistema</string>
+    <string name="guides_count">Cantidad de guías</string>
+    <string name="avg_distance">Distancia promedio</string>
+
+    <!-- Perfil -->
+    <string name="profile_title">Perfil del Usuario</string>
+
+    <!-- Mensajes comunes -->
+    <string name="loading">Cargando...</string>
+    <string name="error_network">Error de conexión</string>
+    <string name="save">Guardar</string>
+</resources>

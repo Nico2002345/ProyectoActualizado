@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".activities.ShipmentListActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="8dp"
+        android:text="Lista de Envíos"
+        android:textColor="#212121"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        card_view:cardBackgroundColor="@android:color/white"
+        card_view:cardCornerRadius="10dp"
+        card_view:cardElevation="5dp">
+
+        <ListView
+            android:id="@+id/lvShipments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#E0E0E0"
+            android:dividerHeight="1dp"
+            android:listSelector="@android:color/darker_gray" />
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btnAddShipment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#2196F3"
+        android:text="➕ Nuevo Envío"
+        android:textColor="@android:color/white" />
+</LinearLayout>
