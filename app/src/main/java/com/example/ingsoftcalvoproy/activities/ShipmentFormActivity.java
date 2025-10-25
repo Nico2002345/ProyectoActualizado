@@ -2,29 +2,20 @@ package com.example.ingsoftcalvoproy.activities;
 
 import android.content.ContentValues;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.ingsoftcalvoproy.R;
 import com.example.ingsoftcalvoproy.database.Db;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import com.example.ingsoftcalvoproy.utils.Utils;
 
 /**
- * Formulario para crear o editar envíos.
+ * Formulario para crear envíos (DB actual: con cálculo de volumen y sin envío de correo).
  */
 public class ShipmentFormActivity extends AppCompatActivity {
 
     private Db db;
-
-    // Campos del formulario
-    private EditText etObject, etHeight, etWidth, etLength, etWeight;
-    private EditText etSenderName, etSenderContact;
-    private EditText etReceiverName, etReceiverContact, etReceiverAddress, etDistance;
+    private EditText etObject, etAddress, etWeight, etDistance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,89 +24,87 @@ public class ShipmentFormActivity extends AppCompatActivity {
 
         db = new Db(this);
 
-        // Inicializar campos del XML
-        etObject = findViewById(R.id.etObject);
-        etHeight = findViewById(R.id.etHeight);
-        etWidth = findViewById(R.id.etWidth);
-        etLength = findViewById(R.id.etLength);
-        etWeight = findViewById(R.id.etWeight);
-        etSenderName = findViewById(R.id.etSenderName);
-        etSenderContact = findViewById(R.id.etSenderContact);
-        etReceiverName = findViewById(R.id.etReceiverName);
-        etReceiverContact = findViewById(R.id.etReceiverContact);
-        etReceiverAddress = findViewById(R.id.etReceiverAddress);
+        etObject   = findViewById(R.id.etObject);
+        etAddress  = findViewById(R.id.etAddress);
+        etWeight   = findViewById(R.id.etWeight);
         etDistance = findViewById(R.id.etDistance);
 
         findViewById(R.id.btnSaveShipment).setOnClickListener(v -> saveShipment());
     }
 
     private void saveShipment() {
+        // Validaciones básicas
+        if (Utils.isEmpty(etObject.getText().toString())
+                || Utils.isEmpty(etAddress.getText().toString())
+                || Utils.isEmpty(etWeight.getText().toString())
+                || Utils.isEmpty(etDistance.getText().toString())) {
+            Utils.toast(this, "Completa todos los campos obligatorios.");
+            return;
+        }
+
+        double weight   = Utils.parseDoubleSafe(etWeight.getText().toString());
+        double distance = Utils.parseDoubleSafe(etDistance.getText().toString());
+        double volume   = weight * distance; // 🔹 Cálculo del volumen
+        String code     = Utils.generateShipmentCode();
+
+        ContentValues cv = new ContentValues();
+        cv.put("shipment_code", code);
+        cv.put("object_desc", etObject.getText().toString().trim());
+        cv.put("receiver_address", etAddress.getText().toString().trim());
+        cv.put("weight_kg", weight);
+        cv.put("distance_km", distance);
+        cv.put("volume_m3", volume); // 🔹 Se guarda el volumen en la DB
+        cv.put("status", "CREADO");
+
+        long shipmentId = -1;
         try {
-            // Validar campos requeridos
-            if (etObject.getText().toString().isEmpty() ||
-                    etSenderName.getText().toString().isEmpty() ||
-                    etReceiverName.getText().toString().isEmpty() ||
-                    etReceiverAddress.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Por favor completa los campos obligatorios.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            String code = generateShipmentCode();
-
-            // Convertir los valores numéricos (si están vacíos, asigna 0)
-            double height = parseDoubleSafe(etHeight.getText().toString());
-            double width = parseDoubleSafe(etWidth.getText().toString());
-            double length = parseDoubleSafe(etLength.getText().toString());
-            double weight = parseDoubleSafe(etWeight.getText().toString());
-            double distance = parseDoubleSafe(etDistance.getText().toString());
-
-            ContentValues cv = new ContentValues();
-            cv.put("shipment_code", code);
-            cv.put("object_desc", etObject.getText().toString());
-            cv.put("height_cm", height);
-            cv.put("width_cm", width);
-            cv.put("length_cm", length);
-            cv.put("weight_kg", weight);
-            cv.put("sender_name", etSenderName.getText().toString());
-            cv.put("sender_contact", etSenderContact.getText().toString());
-            cv.put("receiver_name", etReceiverName.getText().toString());
-            cv.put("receiver_contact", etReceiverContact.getText().toString());
-            cv.put("receiver_address", etReceiverAddress.getText().toString());
-            cv.put("distance_km", distance);
-
-            long id = db.insert("shipments", cv);
-
-            if (id > 0) {
-                ContentValues ev = new ContentValues();
-                ev.put("shipment_id", id);
-                ev.put("status", "CREADO");
-                ev.put("location", "Origen");
-                db.insert("tracking_events", ev);
-
-                Toast.makeText(this, "✅ Envío creado con código: " + code, Toast.LENGTH_LONG).show();
-                finish();
-            } else {
-                Toast.makeText(this, "❌ Error al guardar envío.", Toast.LENGTH_SHORT).show();
-            }
+            shipmentId = db.insert("shipments", cv);
+            Log.d("DB_DEBUG", "Insertando envío: " + cv);
+            Log.d("DB_DEBUG", "Resultado insert: " + shipmentId);
         } catch (Exception e) {
-            Toast.makeText(this, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-            e.printStackTrace();
+            Log.e("DB_ERROR", "Error al insertar envío", e);
+            Utils.toast(this, "❌ Error en la base de datos: " + e.getMessage());
+            return;
         }
-    }
 
-    private String generateShipmentCode() {
-        String date = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
-        int rnd = (int) (Math.random() * 9000) + 1000;
-        return "ENV-" + date + "-" + rnd;
-    }
+        if (shipmentId <= 0) {
+            Utils.toast(this, "❌ Error al guardar el envío (verifica la tabla shipments).");
+            return;
+        }
 
-    // Evita errores si un campo numérico está vacío
-    private double parseDoubleSafe(String value) {
-        if (value == null || value.trim().isEmpty()) return 0.0;
         try {
-            return Double.parseDouble(value);
-        } catch (NumberFormatException e) {
-            return 0.0;
+            ContentValues ev = new ContentValues();
+            ev.put("shipment_id", shipmentId);
+            ev.put("status", "CREADO");
+            ev.put("location", "Origen");
+            db.insert("tracking_events", ev);
+        } catch (Exception e) {
+            Log.e("DB_ERROR", "Error al insertar evento de tracking", e);
         }
+
+        Utils.toastLong(this, "✅ Envío creado.\nCódigo: " + code + "\nVolumen: " + volume + " m³");
+
+        // Indicamos que la creación fue exitosa y cerramos la activity
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    // 🔹 Este método se ejecuta cada vez que la Activity vuelve al frente
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadShipments(); // refresca los datos
+    }
+
+    private void loadShipments() {
+        // 🧩 Aquí puedes agregar la lógica para recargar los envíos si es necesario
+        Log.d("SHIPMENT_FORM", "Recargando envíos...");
+        // Normalmente, esta función estaría en ShipmentListActivity
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (db != null) db.closeDB();
     }
 }

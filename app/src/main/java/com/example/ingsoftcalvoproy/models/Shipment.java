@@ -3,6 +3,7 @@ package com.example.ingsoftcalvoproy.models;
 /**
  * Modelo de Envío.
  */
+
 public class Shipment {
     private int id;
     private String shipmentCode;

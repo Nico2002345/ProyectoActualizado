@@ -2,20 +2,20 @@ package com.example.ingsoftcalvoproy.activities;
 
 import android.content.ContentValues;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ingsoftcalvoproy.R;
 import com.example.ingsoftcalvoproy.database.Db;
+import com.example.ingsoftcalvoproy.utils.Utils;
 
 /**
  * Permite registrar nuevos usuarios con su tipo de rol.
+ * Inserta los datos directamente en la tabla real `users`.
  */
 public class RegisterActivity extends AppCompatActivity {
 
@@ -29,17 +29,15 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Inicializar base de datos
         db = new Db(this);
 
-        // Referencias a vistas
         etName = findViewById(R.id.etName);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         spRole = findViewById(R.id.spRole);
         btnSave = findViewById(R.id.btnSave);
 
-        // 🔹 Llenar el Spinner con los roles definidos en strings.xml
+        // === Cargar roles desde strings.xml ===
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
                 R.array.roles_array,
@@ -48,36 +46,55 @@ public class RegisterActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spRole.setAdapter(adapter);
 
-        // Evento de guardado
         btnSave.setOnClickListener(v -> register());
     }
 
+    /**
+     * Registra un nuevo usuario en la base de datos real.
+     */
     private void register() {
-        // Obtener valores de los campos
         String name = etName.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         String role = spRole.getSelectedItem().toString();
 
-        // 🔸 Validaciones básicas
-        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
+        // === Validaciones ===
+        if (Utils.isEmpty(name) || Utils.isEmpty(email) || Utils.isEmpty(password)) {
+            Utils.toast(this, "Por favor completa todos los campos.");
             return;
         }
 
-        // 🔹 Insertar en base de datos
+        if (!Utils.isValidEmail(email)) {
+            Utils.toast(this, "Correo electrónico no válido.");
+            return;
+        }
+
+        // === Verificar duplicado de email ===
+        if (db.exists("users", "email", email)) {
+            Utils.toast(this, "Ya existe un usuario registrado con este correo.");
+            return;
+        }
+
+        // === Insertar en BD real ===
         ContentValues cv = new ContentValues();
-        cv.put("name", name);
-        cv.put("email", email);
+        cv.put("name", Utils.capitalize(name));
+        cv.put("email", email.toLowerCase());
         cv.put("password", password);
-        cv.put("role", role);
+        cv.put("role", role.toUpperCase());
 
         long id = db.insert("users", cv);
+
         if (id > 0) {
-            Toast.makeText(this, "Usuario registrado como " + role, Toast.LENGTH_LONG).show();
-            finish();
+            Utils.toastLong(this, "✅ Usuario registrado como " + role);
+            finish(); // Cierra y regresa al login
         } else {
-            Toast.makeText(this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
+            Utils.toast(this, "❌ Error al registrar el usuario.");
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        db.closeDB();
     }
 }

@@ -12,6 +12,9 @@
     <string name="register_button">Registrarse</string>
     <string name="select_role_prompt">Seleccione un rol</string>
 
+    <!-- Spinner ConductorRutasActivity -->
+    <string name="select_truck_prompt">Seleccione camión</string>
+
     <!-- Lista de roles para el registro -->
     <string-array name="roles_array">
         <item>Usuario</item>

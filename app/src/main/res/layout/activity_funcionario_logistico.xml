@@ -1,0 +1,67 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".activities.FuncionarioLogisticaActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Panel Funcionario de Logística"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="#212121"
+            android:paddingBottom="16dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="12dp"
+            card_view:cardElevation="5dp"
+            card_view:cardBackgroundColor="@android:color/white"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnObtenerGuias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Obtener guías para monitoreo"
+                    android:layout_marginBottom="12dp"
+                    android:backgroundTint="#2196F3"
+                    android:textColor="@android:color/white"/>
+
+                <Button
+                    android:id="@+id/btnBalancearCargas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Balancear cargas y agilizar rutas"
+                    android:layout_marginBottom="12dp"
+                    android:backgroundTint="#2196F3"
+                    android:textColor="@android:color/white"/>
+
+                <Button
+                    android:id="@+id/btnGenerarGuias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Generar y almacenar guías clasificadas"
+                    android:backgroundTint="#2196F3"
+                    android:textColor="@android:color/white"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</ScrollView>

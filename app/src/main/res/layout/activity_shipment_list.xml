@@ -1,32 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="#E3F2FD"
     tools:context=".activities.ShipmentListActivity">
 
+    <!--  🔹 Título  -->
     <TextView
+        android:id="@+id/tvShipmentListTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="8dp"
         android:text="Lista de Envíos"
-        android:textColor="#212121"
         android:textSize="22sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="#212121"
+        android:paddingBottom="8dp" />
 
+    <!--  🔹 Tarjeta con lista  -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         android:layout_weight="1"
-        card_view:cardBackgroundColor="@android:color/white"
-        card_view:cardCornerRadius="10dp"
-        card_view:cardElevation="5dp">
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@android:color/white">
 
         <ListView
             android:id="@+id/lvShipments"
@@ -37,12 +40,37 @@
             android:listSelector="@android:color/darker_gray" />
     </androidx.cardview.widget.CardView>
 
+    <!--  🔹 Botón para agregar envío  -->
     <Button
         android:id="@+id/btnAddShipment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="#2196F3"
         android:text="➕ Nuevo Envío"
-        android:textColor="@android:color/white" />
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#1976D2"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:padding="12dp" />
+
+    <!--  🔹 Botón para eliminar envío -->
+    <Button
+        android:id="@+id/btnDeleteShipment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🗑️ Eliminar Envío"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#D32F2F"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:padding="12dp" />
+
+    <!--  🔹 Nota informativa  -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Visualiza los envíos registrados o agrega uno nuevo."
+        android:textSize="12sp"
+        android:textColor="#757575"
+        android:gravity="center"
+        android:paddingTop="8dp" />
 </LinearLayout>

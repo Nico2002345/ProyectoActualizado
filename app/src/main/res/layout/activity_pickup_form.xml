@@ -1,0 +1,23 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="#F5F5F5" android:padding="24dp" tools:context=".activities.PickupFormActivity">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+        <!--  🔹 Título  -->
+        <TextView android:id="@+id/tvTitlePickup" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Nueva Solicitud de Recogida" android:textSize="22sp" android:textStyle="bold" android:gravity="center" android:textColor="#212121" android:paddingBottom="16dp"/>
+        <!--  🔹 Contenedor del formulario  -->
+        <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content" app:cardCornerRadius="12dp" app:cardElevation="6dp" app:cardBackgroundColor="@android:color/white" android:padding="20dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <!--  Dirección  -->
+                <EditText android:id="@+id/etAddress" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Dirección de recogida" android:inputType="textPostalAddress" android:padding="12dp" android:backgroundTint="#2196F3"/>
+                <!--  Fecha  -->
+                <EditText android:id="@+id/etDate" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Fecha programada (dd/mm/aaaa)" android:inputType="datetime" android:layout_marginTop="12dp" android:padding="12dp" android:backgroundTint="#2196F3"/>
+                <!--  Peso  -->
+                <EditText android:id="@+id/etWeight" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Peso estimado (kg)" android:inputType="numberDecimal" android:layout_marginTop="12dp" android:padding="12dp" android:backgroundTint="#2196F3"/>
+                <!--  Volumen  -->
+                <EditText android:id="@+id/etVolume" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Volumen estimado (m³)" android:inputType="numberDecimal" android:layout_marginTop="12dp" android:padding="12dp" android:backgroundTint="#2196F3"/>
+                <!--  Correo (opcional)  -->
+                <EditText android:id="@+id/etEmail" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Correo electrónico (opcional)" android:inputType="textEmailAddress" android:layout_marginTop="12dp" android:padding="12dp" android:backgroundTint="#2196F3"/>
+                <!--  Botón de Guardar  -->
+                <Button android:id="@+id/btnSavePickup" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="💾 Guardar Solicitud" android:textColor="@android:color/white" android:backgroundTint="#2196F3" android:layout_marginTop="20dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</ScrollView>

@@ -1,10 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E3F2FD"
-    android:padding="24dp"
-    tools:context=".activities.HomeActivity">
+    android:padding="24dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +14,7 @@
             android:id="@+id/tvWelcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Bienvenido, Usuario"
+            android:text="Bienvenido, Recolector"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="#212121"
@@ -27,48 +25,39 @@
             android:id="@+id/tvRole"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Rol: USUARIO"
+            android:text="Rol: RECOLECTOR"
             android:textSize="16sp"
             android:textColor="#424242"
             android:gravity="center"
             android:paddingBottom="24dp" />
 
-        <!-- 🔹 Botones de navegación -->
+        <!-- 🔹 Botones de acción -->
         <Button
-            android:id="@+id/btnShipments"
+            android:id="@+id/btnViewPickups"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="📦 Ver Envíos"
+            android:text="📍 Ver Recogidas"
             android:backgroundTint="#2196F3"
             android:textColor="@android:color/white"
             android:layout_marginBottom="12dp" />
 
         <Button
-            android:id="@+id/btnAnalytics"
+            android:id="@+id/btnTrackRoute"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="📊 Ver Analíticas"
+            android:text="🗺️ Ver Ruta"
             android:backgroundTint="#03A9F4"
             android:textColor="@android:color/white"
             android:layout_marginBottom="12dp" />
 
         <Button
-            android:id="@+id/btnTracking"
+            android:id="@+id/btnReportCompletion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="🚚 Rastrear Envío"
+            android:text="✅ Reportar Completadas"
             android:backgroundTint="#0288D1"
             android:textColor="@android:color/white"
             android:layout_marginBottom="12dp" />
-
-        <Button
-            android:id="@+id/btnPickups"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="📍 Solicitudes de Recogida"
-            android:backgroundTint="#039BE5"
-            android:textColor="@android:color/white"
-            android:layout_marginBottom="20dp" />
 
         <!-- 🔹 Cerrar sesión -->
         <Button
@@ -78,7 +67,7 @@
             android:text="🚪 Cerrar Sesión"
             android:backgroundTint="#B71C1C"
             android:textColor="@android:color/white"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="20dp" />
 
     </LinearLayout>
 </ScrollView>

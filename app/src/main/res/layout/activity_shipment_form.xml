@@ -1,172 +1,124 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
+    android:background="#E3F2FD"
     tools:context=".activities.ShipmentFormActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:padding="24dp">
 
+        <!--  🔹 Título  -->
         <TextView
+            android:id="@+id/tvShipmentTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nuevo Envío"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             android:gravity="center"
             android:textColor="#212121"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="16dp" />
 
+        <!--  🔹 Tarjeta del formulario  -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            card_view:cardCornerRadius="8dp"
-            card_view:cardElevation="2dp"
-            card_view:cardBackgroundColor="@android:color/white"
-            android:padding="10dp">
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@android:color/white"
+            android:padding="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Datos del objeto -->
+                <!--  Campo descripción  -->
                 <EditText
                     android:id="@+id/etObject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="Descripción del objeto"
-                    android:textSize="14sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:backgroundTint="#2196F3" />
+                    android:inputType="textCapSentences"
+                    android:padding="12dp"
+                    android:backgroundTint="#2196F3"
+                    android:importantForAutofill="no" />
 
-                <!-- Medidas -->
+                <!--  Campo dirección  -->
                 <EditText
-                    android:id="@+id/etHeight"
-                    android:hint="Alto (cm)"
-                    android:inputType="numberDecimal"
-                    android:textSize="14sp"
+                    android:id="@+id/etAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:padding="8dp"
-                    android:backgroundTint="#2196F3" />
+                    android:layout_marginTop="12dp"
+                    android:hint="Dirección del destinatario"
+                    android:inputType="textCapSentences"
+                    android:padding="12dp"
+                    android:backgroundTint="#2196F3"
+                    android:importantForAutofill="no" />
 
-                <EditText
-                    android:id="@+id/etWidth"
-                    android:hint="Ancho (cm)"
-                    android:inputType="numberDecimal"
-                    android:textSize="14sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:padding="8dp"
-                    android:backgroundTint="#2196F3" />
-
-                <EditText
-                    android:id="@+id/etLength"
-                    android:hint="Largo (cm)"
-                    android:inputType="numberDecimal"
-                    android:textSize="14sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:padding="8dp"
-                    android:backgroundTint="#2196F3" />
-
+                <!--  Campo peso  -->
                 <EditText
                     android:id="@+id/etWeight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:hint="Peso (kg)"
                     android:inputType="numberDecimal"
-                    android:textSize="14sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:padding="8dp"
-                    android:backgroundTint="#2196F3" />
+                    android:padding="12dp"
+                    android:backgroundTint="#2196F3"
+                    android:importantForAutofill="no" />
 
-                <!-- Remitente -->
-                <EditText
-                    android:id="@+id/etSenderName"
-                    android:hint="Nombre del remitente"
-                    android:textSize="14sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:padding="8dp"
-                    android:backgroundTint="#4CAF50" />
-
-                <EditText
-                    android:id="@+id/etSenderContact"
-                    android:hint="Teléfono del remitente"
-                    android:inputType="phone"
-                    android:textSize="14sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:padding="8dp"
-                    android:backgroundTint="#4CAF50" />
-
-                <!-- Destinatario -->
-                <EditText
-                    android:id="@+id/etReceiverName"
-                    android:hint="Nombre del destinatario"
-                    android:textSize="14sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:padding="8dp"
-                    android:backgroundTint="#FF9800" />
-
-                <EditText
-                    android:id="@+id/etReceiverContact"
-                    android:hint="Teléfono del destinatario"
-                    android:inputType="phone"
-                    android:textSize="14sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:padding="8dp"
-                    android:backgroundTint="#FF9800" />
-
-                <EditText
-                    android:id="@+id/etReceiverAddress"
-                    android:hint="Dirección del destinatario"
-                    android:textSize="14sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:padding="8dp"
-                    android:backgroundTint="#FF9800" />
-
+                <!--  Campo distancia  -->
                 <EditText
                     android:id="@+id/etDistance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:hint="Distancia (km)"
                     android:inputType="numberDecimal"
-                    android:textSize="14sp"
+                    android:padding="12dp"
+                    android:backgroundTint="#2196F3"
+                    android:importantForAutofill="no" />
+
+                <!--  Campo volumen  -->
+                <EditText
+                    android:id="@+id/etVolume"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:padding="8dp"
-                    android:backgroundTint="#FF9800" />
+                    android:layout_marginTop="12dp"
+                    android:hint="Volumen (m³)"
+                    android:inputType="numberDecimal"
+                    android:padding="12dp"
+                    android:backgroundTint="#2196F3"
+                    android:importantForAutofill="no" />
 
-                <!-- Botón Guardar -->
+                <!--  Botón guardar  -->
                 <Button
                     android:id="@+id/btnSaveShipment"
-                    android:text="Guardar Envío"
-                    android:textSize="14sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:backgroundTint="#2196F3"
-                    android:textColor="@android:color/white" />
+                    android:text="💾 Guardar Envío"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="#1976D2"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <!--  🔹 Nota informativa  -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="* Todos los campos son obligatorios"
+            android:textSize="12sp"
+            android:textColor="#757575"
+            android:gravity="center"
+            android:paddingTop="12dp" />
     </LinearLayout>
 </ScrollView>

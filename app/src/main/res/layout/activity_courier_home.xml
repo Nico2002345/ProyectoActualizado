@@ -1,37 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#E1F5FE"
-    android:padding="24dp"
-    tools:context=".activities.CourierHomeActivity">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Panel del Repartidor"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textColor="#212121"
-        android:paddingBottom="20dp" />
-
-    <Button
-        android:id="@+id/btnVerGuias"
-        android:text="📄 Ver Guías Asignadas"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#2196F3"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="12dp" />
-
-    <Button
-        android:id="@+id/btnRegistrarEntrega"
-        android:text="✅ Registrar Entrega"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#03A9F4"
-        android:textColor="@android:color/white" />
-</LinearLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="#E1F5FE" android:padding="24dp" tools:context=".activities.CourierHomeActivity">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center_horizontal">
+        <!--  🔹 Título  -->
+        <TextView android:id="@+id/tvTitleCourier" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Panel del Repartidor" android:textSize="24sp" android:textStyle="bold" android:gravity="center" android:textColor="#212121" android:paddingBottom="20dp"/>
+        <!--  🔹 Información del camión  -->
+        <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content" app:cardCornerRadius="10dp" app:cardElevation="5dp" app:cardUseCompatPadding="true" app:cardBackgroundColor="@android:color/white" android:padding="16dp" android:layout_marginBottom="12dp">
+            <TextView android:id="@+id/tvTruckInfo" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="🚚 Camión asignado: --" android:textSize="18sp" android:textColor="#212121"/>
+        </androidx.cardview.widget.CardView>
+        <!--  🔹 Estadísticas  -->
+        <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content" app:cardCornerRadius="10dp" app:cardElevation="5dp" app:cardUseCompatPadding="true" app:cardBackgroundColor="@android:color/white" android:padding="16dp" android:layout_marginBottom="20dp">
+            <TextView android:id="@+id/tvStats" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="📦 Envíos:\nCreados: --\nEn tránsito: --\nEntregados: --" android:textSize="18sp" android:textColor="#212121"/>
+        </androidx.cardview.widget.CardView>
+        <!--  🔹 Botones  -->
+        <Button android:id="@+id/btnVerGuias" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="📄 Ver Guías Asignadas" android:backgroundTint="#1976D2" android:textColor="@android:color/white" android:layout_marginBottom="12dp"/>
+        <Button android:id="@+id/btnRegistrarEntrega" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="✅ Registrar Entrega" android:backgroundTint="#03A9F4" android:textColor="@android:color/white" android:layout_marginBottom="12dp"/>
+        <Button android:id="@+id/btnActualizarEstado" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="🔄 Actualizar Estado" android:backgroundTint="#0288D1" android:textColor="@android:color/white"/>
+    </LinearLayout>
+</ScrollView>

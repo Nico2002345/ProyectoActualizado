@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.ingsoftcalvoproy">
@@ -14,38 +13,52 @@
         android:theme="@style/AppTheme"
         tools:targetApi="35">
 
-        <!-- 🔹 Activity principal (pantalla de Login) -->
-        <activity
-            android:name=".activities.LoginActivity"
-            android:exported="true">
+        <!--  🔹 Activity principal (Login)  -->
+        <activity android:name=".activities.LoginActivity" android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <!-- 🔹 Registro -->
-        <activity android:name=".activities.RegisterActivity" />
+        <!--  🔹 Registro  -->
+        <activity android:name=".activities.RegisterActivity"/>
 
-        <!-- 🔹 Menús principales -->
-        <activity android:name=".activities.HomeActivity" />
-        <activity android:name=".activities.CourierHomeActivity" />
+        <!--  🔹 Menús principales  -->
+        <activity android:name=".activities.HomeActivity"/>
+        <activity android:name=".activities.CourierHomeActivity"/>
 
-        <!-- 🔹 Gestión de envíos -->
-        <activity android:name=".activities.ShipmentListActivity" />
-        <activity android:name=".activities.ShipmentFormActivity" />
+        <!--  🔹 Gestión de envíos  -->
+        <activity android:name=".activities.ShipmentListActivity"/>
+        <activity android:name=".activities.ShipmentFormActivity"/>
 
-        <!-- 🔹 Listas de personal -->
-        <activity android:name=".activities.CollectorsListActivity" />
-        <activity android:name=".activities.GuidesListActivity" />
-        <activity android:name=".activities.PickupsListActivity" />
-        <activity android:name=".activities.TrucksListActivity" />
+        <!--  🔹 Gestión de recogidas  -->
+        <activity android:name=".activities.PickupsListActivity"/>
+        <activity android:name=".activities.PickupFormActivity"/>
 
-        <!-- 🔹 Otras pantallas -->
-        <activity android:name=".activities.TrackingActivity" />
-        <activity android:name=".activities.AnalyticsActivity" />
-        <activity android:name=".activities.ProfileActivity" />
+        <!--  ✅ AÑADIDA  -->
+        <!--  🔹 Listas de personal  -->
+        <activity android:name=".activities.CollectorsListActivity"/>
+        <activity android:name=".activities.GuidesListActivity"/>
+        <activity android:name=".activities.TrucksListActivity"/>
+        <activity android:name=".activities.FuncionarioLogisticaActivity"/>
+        <!-- 🔹 Mostrar guías para monitoreo -->
+        <activity android:name=".activities.MostrarGuiasActivity"/>
+        <!-- 🔹 Nueva actividad: Conductor Rutas -->
+        <activity android:name=".activities.ConductorRutasActivity"/>
 
+        <!-- 🔹 Nueva actividad: Trabajador / Registro de Mercancía -->
+        <activity android:name=".activities.RegisterMerchandiseActivity"/>
+
+        <!-- 🔹 Nueva actividad: Asignador -->
+        <activity android:name=".activities.AsignadorActivity"/>
+
+        <!-- 🔹 Nueva actividad: Recolector -->
+        <activity android:name=".activities.RecolectorHomeActivity"/>
+
+        <!--  🔹 Otras pantallas  -->
+        <activity android:name=".activities.TrackingActivity"/>
+        <activity android:name=".activities.AnalyticsActivity"/>
+        <activity android:name=".activities.ProfileActivity"/>
     </application>
-
 </manifest>
