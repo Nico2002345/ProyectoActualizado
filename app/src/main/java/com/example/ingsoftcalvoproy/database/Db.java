@@ -197,4 +197,92 @@ public class Db extends DbHelper {
     public int deleteMerchandise(int merchandiseId) {
         return db.delete("merchandise", "id=?", new String[]{String.valueOf(merchandiseId)});
     }
+
+    // 🔹 ESTADÍSTICAS COMPLETAS DE ENVIOS
+    public int getShipmentCountByStatus(String status) {
+        int count = 0;
+        Cursor c = db.rawQuery("SELECT COUNT(*) FROM shipments WHERE status=?", new String[]{status});
+        if (c.moveToFirst()) count = c.getInt(0);
+        c.close();
+        return count;
+    }
+
+    public double getAverageWeight() {
+        double avg = 0;
+        Cursor c = db.rawQuery("SELECT AVG(weight_kg) FROM shipments", null);
+        if (c.moveToFirst()) avg = c.getDouble(0);
+        c.close();
+        return avg;
+    }
+
+    public double getAverageVolume() {
+        double avg = 0;
+        Cursor c = db.rawQuery("SELECT AVG(volume_m3) FROM shipments", null);
+        if (c.moveToFirst()) avg = c.getDouble(0);
+        c.close();
+        return avg;
+    }
+
+    public double getAverageDistance() {
+        double avg = 0;
+        Cursor c = db.rawQuery("SELECT AVG(distance_km) FROM shipments", null);
+        if (c.moveToFirst()) avg = c.getDouble(0);
+        c.close();
+        return avg;
+    }
+
+    // Medianas
+    public double getMedianWeight() { return getMedian("weight_kg"); }
+    public double getMedianVolume() { return getMedian("volume_m3"); }
+    public double getMedianDistance() { return getMedian("distance_km"); }
+
+    // Valores máximos
+    public double getMaxWeight() {
+        double max = 0;
+        Cursor c = db.rawQuery("SELECT MAX(weight_kg) FROM shipments", null);
+        if (c.moveToFirst()) max = c.getDouble(0);
+        c.close();
+        return max;
+    }
+
+    public double getMaxVolume() {
+        double max = 0;
+        Cursor c = db.rawQuery("SELECT MAX(volume_m3) FROM shipments", null);
+        if (c.moveToFirst()) max = c.getDouble(0);
+        c.close();
+        return max;
+    }
+
+    public double getMaxDistance() {
+        double max = 0;
+        Cursor c = db.rawQuery("SELECT MAX(distance_km) FROM shipments", null);
+        if (c.moveToFirst()) max = c.getDouble(0);
+        c.close();
+        return max;
+    }
+
+    // Valores mínimos
+    public double getMinWeight() {
+        double min = 0;
+        Cursor c = db.rawQuery("SELECT MIN(weight_kg) FROM shipments", null);
+        if (c.moveToFirst()) min = c.getDouble(0);
+        c.close();
+        return min;
+    }
+
+    public double getMinVolume() {
+        double min = 0;
+        Cursor c = db.rawQuery("SELECT MIN(volume_m3) FROM shipments", null);
+        if (c.moveToFirst()) min = c.getDouble(0);
+        c.close();
+        return min;
+    }
+
+    public double getMinDistance() {
+        double min = 0;
+        Cursor c = db.rawQuery("SELECT MIN(distance_km) FROM shipments", null);
+        if (c.moveToFirst()) min = c.getDouble(0);
+        c.close();
+        return min;
+    }
 }

@@ -27,7 +27,6 @@ public class AsignadorActivity extends AppCompatActivity {
         // 🔹 Inicializar vistas
         tvWelcome = findViewById(R.id.tvWelcome);
         tvRole = findViewById(R.id.tvRole);
-
         btnAssignCollectors = findViewById(R.id.btnAssignCollectors);
         btnManagePickups = findViewById(R.id.btnManagePickups);
         btnAssignVehicles = findViewById(R.id.btnAssignVehicles);
