@@ -1,118 +1,127 @@
 package com.example.ingsoftcalvoproy.activities;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.ingsoftcalvoproy.R;
-import com.example.ingsoftcalvoproy.database.Db;
 
-/**
- * Mide tendencia de los envíos (solo con columnas existentes en la BD):
- * - Promedio, mediana y moda de: peso (kg) y distancia (km)
- * - Cantidad de guías
- */
+import com.example.ingsoftcalvoproy.R;
+import com.example.ingsoftcalvoproy.network.ApiService;
+import com.example.ingsoftcalvoproy.network.ApiClient;
+
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AnalyticsActivity extends AppCompatActivity {
 
-    private Db db;
+    private ApiService api;
 
     private TextView tvCountGuides;
     private TextView tvAvgWeight, tvAvgDist;
-    private TextView tvMedianWeight, tvMedianDist;
-    private TextView tvModeWeight, tvModeDist;
+    private TextView tvMinWeight, tvMinDist;
+    private TextView tvMaxWeight, tvMaxDist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analytics);
 
-        db = new Db(this);
+        // ✅ Inicializar API correctamente usando ApiClient
+        api = ApiClient.getClient().create(ApiService.class);
 
-        // === Referencias a vistas (IDs EMPAREJADOS con el XML) ===
+// ✅ Enlazar vistas con el XML
         tvCountGuides   = findViewById(R.id.tvCountGuides);
 
         tvAvgWeight     = findViewById(R.id.tvAvgWeight);
         tvAvgDist       = findViewById(R.id.tvAvgDist);
 
-        tvMedianWeight  = findViewById(R.id.tvMedianWeight);
-        tvMedianDist    = findViewById(R.id.tvMedianDist);
+        tvMinWeight     = findViewById(R.id.tvMinWeight);
+        tvMinDist       = findViewById(R.id.tvMinDist);
 
-        tvModeWeight    = findViewById(R.id.tvModeWeight);
-        tvModeDist      = findViewById(R.id.tvModeDist);
+        tvMaxWeight     = findViewById(R.id.tvMaxWeight);
+        tvMaxDist       = findViewById(R.id.tvMaxDist);
+
 
         loadAnalytics();
     }
 
     private void loadAnalytics() {
-        // === Promedios (desde BD) ===
-        Cursor cAvg = db.raw(
-                "SELECT AVG(weight_kg) AS avg_weight, AVG(distance_km) AS avg_distance FROM shipments",
-                null
-        );
-        if (cAvg.moveToFirst()) {
-            double avgWeight = cAvg.isNull(cAvg.getColumnIndexOrThrow("avg_weight"))
-                    ? 0 : cAvg.getDouble(cAvg.getColumnIndexOrThrow("avg_weight"));
-            double avgDist = cAvg.isNull(cAvg.getColumnIndexOrThrow("avg_distance"))
-                    ? 0 : cAvg.getDouble(cAvg.getColumnIndexOrThrow("avg_distance"));
-
-            tvAvgWeight.setText(String.format("Peso promedio: %.2f kg", avgWeight));
-            tvAvgDist.setText(String.format("Distancia promedio: %.2f km", avgDist));
-        }
-        cAvg.close();
-
-        // === Medianas ===
-        double medWeight = getMedianFromColumn("weight_kg");
-        double medDist   = getMedianFromColumn("distance_km");
-        tvMedianWeight.setText(String.format("Mediana peso: %.2f kg", medWeight));
-        tvMedianDist.setText(String.format("Mediana distancia: %.2f km", medDist));
-
-        // === Modas (valor más frecuente) ===
-        tvModeWeight.setText(String.format("Moda peso: %.2f kg", getMode("weight_kg")));
-        tvModeDist.setText(String.format("Moda distancia: %.2f km", getMode("distance_km")));
-
-        // === Cantidad de guías ===
-        int countGuides = db.count("guides");
-        tvCountGuides.setText("Cantidad de guías: " + countGuides);
+        loadAverages();
+        loadMinimums();
+        loadMaximums();
+        loadCountByStatus();
     }
 
-    /** Calcula mediana de una columna numérica de shipments usando SQL y posición media. */
-    private double getMedianFromColumn(String column) {
-        double median = 0.0;
-        Cursor c = db.raw(
-                "SELECT " + column + " FROM shipments " +
-                        "WHERE " + column + " IS NOT NULL " +
-                        "ORDER BY " + column,
-                null
-        );
-        int n = c.getCount();
-        if (n > 0) {
-            // mover al elemento central (para n par tomamos el superior; simple y suficiente)
-            c.moveToPosition(n / 2);
-            median = c.getDouble(0);
-        }
-        c.close();
-        return median;
+    private void loadAverages() {
+        api.getAverages().enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Map<String, Object> data = response.body();
+                    tvAvgWeight.setText("Peso promedio: " + data.get("avg_weight") + " kg");
+                    tvAvgDist.setText("Distancia promedio: " + data.get("avg_distance") + " km");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                Toast.makeText(AnalyticsActivity.this, "Error cargando promedios", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    /** Obtiene la moda (valor más frecuente) de una columna numérica de shipments. */
-    private double getMode(String column) {
-        double mode = 0.0;
-        Cursor c = db.raw(
-                "SELECT " + column + ", COUNT(*) AS cnt " +
-                        "FROM shipments " +
-                        "WHERE " + column + " IS NOT NULL " +
-                        "GROUP BY " + column + " " +
-                        "ORDER BY cnt DESC LIMIT 1",
-                null
-        );
-        if (c.moveToFirst()) mode = c.getDouble(0);
-        c.close();
-        return mode;
+    private void loadMinimums() {
+        api.getMin().enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Map<String, Object> data = response.body();
+                    tvMinWeight.setText("Peso mínimo: " + data.get("min_weight") + " kg");
+                    tvMinDist.setText("Distancia mínima: " + data.get("min_distance") + " km");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                Toast.makeText(AnalyticsActivity.this, "Error cargando mínimos", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        db.closeDB();
+    private void loadMaximums() {
+        api.getMax().enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Map<String, Object> data = response.body();
+                    tvMaxWeight.setText("Peso máximo: " + data.get("max_weight") + " kg");
+                    tvMaxDist.setText("Distancia máxima: " + data.get("max_distance") + " km");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                Toast.makeText(AnalyticsActivity.this, "Error cargando máximos", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadCountByStatus() {
+        api.getCountByStatus("ENTREGADO").enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    tvCountGuides.setText("Guías entregadas: " + response.body().get("count"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                Toast.makeText(AnalyticsActivity.this, "Error cargando conteo", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

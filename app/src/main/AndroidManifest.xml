@@ -2,6 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.ingsoftcalvoproy">
 
+    <!-- Permiso para consumir servicios web -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:targetApi="35">
+        tools:targetApi="35"
+        android:usesCleartextTraffic="true"> <!-- Permite HTTP si usas 10.0.2.2 -->
 
         <!--  🔹 Activity principal (Login)  -->
         <activity android:name=".activities.LoginActivity" android:exported="true">
@@ -35,6 +41,7 @@
         <!--  🔹 Gestión de recogidas  -->
         <activity android:name=".activities.PickupsListActivity"/>
         <activity android:name=".activities.PickupFormActivity"/>
+        <activity android:name=".activities.RequestPickupActivity"/>
 
         <!--  ✅ AÑADIDA  -->
         <!--  🔹 Listas de personal  -->
@@ -42,6 +49,7 @@
         <activity android:name=".activities.GuidesListActivity"/>
         <activity android:name=".activities.TrucksListActivity"/>
         <activity android:name=".activities.FuncionarioLogisticaActivity"/>
+        <activity android:name=".activities.BalancearCargasActivity"/>
         <!-- 🔹 Mostrar guías para monitoreo -->
         <activity android:name=".activities.MostrarGuiasActivity"/>
         <!-- 🔹 Nueva actividad: Conductor Rutas -->
@@ -52,9 +60,16 @@
 
         <!-- 🔹 Nueva actividad: Asignador -->
         <activity android:name=".activities.AsignadorActivity"/>
+        <activity android:name=".activities.AssignPickupsActivity"/>
 
         <!-- 🔹 Nueva actividad: Recolector -->
         <activity android:name=".activities.RecolectorHomeActivity"/>
+
+        <!-- 🔹 Nueva actividad: Usuarios con Envíos (WebView) -->
+        <activity android:name=".activities.UsersShipmentsActivity"/>
+
+        <!-- 🔹 Nueva actividad: Notificaciones -->
+        <activity android:name=".activities.NotificationsActivity"/>
 
         <!--  🔹 Otras pantallas  -->
         <activity android:name=".activities.TrackingActivity"/>

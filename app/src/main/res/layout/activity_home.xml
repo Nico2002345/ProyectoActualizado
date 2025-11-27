@@ -68,6 +68,26 @@
             android:text="📍 Solicitudes de Recogida"
             android:backgroundTint="#039BE5"
             android:textColor="@android:color/white"
+            android:layout_marginBottom="12dp" />
+
+        <!-- 🔹 Botón para ver usuarios con sus envíos -->
+        <Button
+            android:id="@+id/btnUsersShipments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="👥 Usuarios con Envíos"
+            android:backgroundTint="#1976D2"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="12dp" />
+
+        <!-- 🔹 Botón para ver notificaciones -->
+        <Button
+            android:id="@+id/btnNotifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🔔 Notificaciones"
+            android:backgroundTint="#FF9800"
+            android:textColor="@android:color/white"
             android:layout_marginBottom="20dp" />
 
         <!-- 🔹 Cerrar sesión -->

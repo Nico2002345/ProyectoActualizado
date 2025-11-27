@@ -1,21 +1,109 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:background="#E3F2FD" android:padding="24dp" tools:context=".activities.AnalyticsActivity">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E3F2FD"
+    android:padding="24dp"
+    tools:context=".activities.AnalyticsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <!--  Título  -->
-        <TextView android:id="@+id/tvTitle" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Analíticas de Envíos" android:textSize="24sp" android:textStyle="bold" android:textColor="#212121" android:gravity="center" android:paddingBottom="20dp"/>
-        <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content" app:cardCornerRadius="12dp" app:cardElevation="6dp" app:cardUseCompatPadding="true" app:cardBackgroundColor="@android:color/white" android:padding="20dp">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center_horizontal">
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Analíticas de Envíos"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#212121"
+            android:gravity="center"
+            android:paddingBottom="20dp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@android:color/white"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
                 <!--  Conteo de guías  -->
-                <TextView android:id="@+id/tvCountGuides" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Cantidad de guías: --" android:textSize="18sp" android:textColor="#212121" android:paddingBottom="8dp"/>
+                <TextView
+                    android:id="@+id/tvCountGuides"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cantidad de guías: --"
+                    android:textSize="18sp"
+                    android:textColor="#212121"
+                    android:paddingBottom="8dp" />
+
                 <!--  Promedios  -->
-                <TextView android:id="@+id/tvAvgWeight" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Peso promedio: -- kg" android:textSize="18sp" android:textColor="#212121"/>
-                <TextView android:id="@+id/tvAvgDist" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Distancia promedio: -- km" android:textSize="18sp" android:textColor="#212121" android:paddingBottom="8dp"/>
-                <!--  Medianas  -->
-                <TextView android:id="@+id/tvMedianWeight" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mediana peso: -- kg" android:textSize="18sp" android:textColor="#212121"/>
-                <TextView android:id="@+id/tvMedianDist" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mediana distancia: -- km" android:textSize="18sp" android:textColor="#212121" android:paddingBottom="8dp"/>
-                <!--  Modas  -->
-                <TextView android:id="@+id/tvModeWeight" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Moda peso: -- kg" android:textSize="18sp" android:textColor="#212121"/>
-                <TextView android:id="@+id/tvModeDist" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Moda distancia: -- km" android:textSize="18sp" android:textColor="#212121"/>
+                <TextView
+                    android:id="@+id/tvAvgWeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Peso promedio: -- kg"
+                    android:textSize="18sp"
+                    android:textColor="#212121" />
+
+                <TextView
+                    android:id="@+id/tvAvgDist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Distancia promedio: -- km"
+                    android:textSize="18sp"
+                    android:textColor="#212121"
+                    android:paddingBottom="8dp" />
+
+                <!--  Mínimos  -->
+                <TextView
+                    android:id="@+id/tvMinWeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Peso mínimo: -- kg"
+                    android:textSize="18sp"
+                    android:textColor="#212121" />
+
+                <TextView
+                    android:id="@+id/tvMinDist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Distancia mínima: -- km"
+                    android:textSize="18sp"
+                    android:textColor="#212121"
+                    android:paddingBottom="8dp" />
+
+                <!--  Máximos  -->
+                <TextView
+                    android:id="@+id/tvMaxWeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Peso máximo: -- kg"
+                    android:textSize="18sp"
+                    android:textColor="#212121" />
+
+                <TextView
+                    android:id="@+id/tvMaxDist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Distancia máxima: -- km"
+                    android:textSize="18sp"
+                    android:textColor="#212121" />
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 </ScrollView>

@@ -1,28 +1,29 @@
 package com.example.ingsoftcalvoproy.activities;
 
-import android.database.Cursor;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ingsoftcalvoproy.R;
-import com.example.ingsoftcalvoproy.database.Db;
-import com.example.ingsoftcalvoproy.utils.Utils;
+import com.example.ingsoftcalvoproy.network.ApiClient;
+import com.example.ingsoftcalvoproy.network.ApiService;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-/**
- * Lista de recolectores (collectors).
- * Permite visualizar la información básica y prepararse para asignaciones.
- */
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CollectorsListActivity extends AppCompatActivity {
 
-    private Db db;
     private ListView lvCollectors;
+    private ApiService api;
+
     private ArrayList<String> data = new ArrayList<>();
     private ArrayList<Integer> ids = new ArrayList<>();
 
@@ -31,52 +32,54 @@ public class CollectorsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collectors_list);
 
-        db = new Db(this);
         lvCollectors = findViewById(R.id.lvCollectors);
+        api = ApiClient.getClient().create(ApiService.class);
 
         loadCollectors();
-
-        // 🔹 Acción al hacer clic sobre un recolector (opcional)
-        lvCollectors.setOnItemClickListener((parent, view, position, id) -> {
-            int collectorId = ids.get(position);
-            Utils.toast(this, "Seleccionaste al recolector ID: " + collectorId);
-            // 🔸 Aquí podrías abrir una pantalla para asignarle una ruta o pickup
-        });
     }
 
     private void loadCollectors() {
-        data.clear();
-        ids.clear();
+        api.getCollectors().enqueue(new Callback<List<Map<String, Object>>>() {
+            @Override
+            public void onResponse(Call<List<Map<String, Object>>> call, Response<List<Map<String, Object>>> response) {
+                if (!response.isSuccessful() || response.body() == null) {
+                    Toast.makeText(CollectorsListActivity.this, "Error cargando recolectores", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-        Cursor c = db.raw("""
-            SELECT id, name, phone, email, active
-            FROM collectors
-            ORDER BY name ASC
-        """, null);
+                data.clear();
+                ids.clear();
 
-        while (c.moveToNext()) {
-            int id = c.getInt(0);
-            String name = c.getString(1);
-            String phone = c.getString(2);
-            String email = c.getString(3);
-            int active = c.getInt(4);
+                for (Map<String, Object> c : response.body()) {
 
-            String status = active == 1 ? "🟢 Activo" : "🔴 Inactivo";
-            data.add("ID: " + id +
-                    "\nNombre: " + name +
-                    "\nTeléfono: " + (phone != null ? phone : "N/D") +
-                    "\nEmail: " + (email != null ? email : "N/D") +
-                    "\nEstado: " + status);
-            ids.add(id);
-        }
-        c.close();
+                    int id = (int) c.get("id");
+                    String name = (String) c.get("name");
+                    String phone = (String) c.get("phone");
+                    String email = (String) c.get("email");
+                    boolean active = Boolean.TRUE.equals(c.get("active"));
 
-        lvCollectors.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data));
-    }
+                    String status = active ? "🟢 Activo" : "🔴 Inactivo";
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        db.closeDB();
+                    data.add(
+                            "ID: " + id +
+                                    "\nNombre: " + name +
+                                    "\nTeléfono: " + (phone != null ? phone : "N/D") +
+                                    "\nEmail: " + (email != null ? email : "N/D") +
+                                    "\nEstado: " + status
+                    );
+
+                    ids.add(id);
+                }
+
+                lvCollectors.setAdapter(
+                        new ArrayAdapter<>(CollectorsListActivity.this, android.R.layout.simple_list_item_1, data)
+                );
+            }
+
+            @Override
+            public void onFailure(Call<List<Map<String, Object>>> call, Throwable t) {
+                Toast.makeText(CollectorsListActivity.this, "Error de conexión", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

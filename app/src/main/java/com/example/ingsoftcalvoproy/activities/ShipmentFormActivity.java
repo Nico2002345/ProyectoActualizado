@@ -1,110 +1,121 @@
 package com.example.ingsoftcalvoproy.activities;
 
-import android.content.ContentValues;
+import static com.example.ingsoftcalvoproy.utils.Utils.generateShipmentCode;
+
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.Button;
 import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.ingsoftcalvoproy.R;
-import com.example.ingsoftcalvoproy.database.Db;
+import com.example.ingsoftcalvoproy.network.ApiService;
 import com.example.ingsoftcalvoproy.utils.Utils;
 
-/**
- * Formulario para crear envíos (DB actual: con cálculo de volumen y sin envío de correo).
- */
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ShipmentFormActivity extends AppCompatActivity {
 
-    private Db db;
-    private EditText etObject, etAddress, etWeight, etDistance;
+    private EditText etObject, etAddress, etWeight, etDistance, etVolume;
+    private Button btnSaveShipment;
+    private ApiService apiService;
+    private int userId = 1; // Reemplazar con ID real del usuario logueado
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shipment_form);
 
-        db = new Db(this);
+        apiService = Utils.getApiService();
 
-        etObject   = findViewById(R.id.etObject);
-        etAddress  = findViewById(R.id.etAddress);
-        etWeight   = findViewById(R.id.etWeight);
+        etObject = findViewById(R.id.etObject);
+        etAddress = findViewById(R.id.etAddress);
+        etWeight = findViewById(R.id.etWeight);
         etDistance = findViewById(R.id.etDistance);
+        etVolume = findViewById(R.id.etVolume);
 
-        findViewById(R.id.btnSaveShipment).setOnClickListener(v -> saveShipment());
+        btnSaveShipment = findViewById(R.id.btnSaveShipment);
+        btnSaveShipment.setOnClickListener(v -> saveShipment());
+
+        // Actualizar volumen automáticamente al cambiar peso o distancia
+        TextWatcher watcher = new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { updateVolume(); }
+            @Override public void afterTextChanged(Editable s) {}
+        };
+
+        etWeight.addTextChangedListener(watcher);
+        etDistance.addTextChangedListener(watcher);
+    }
+
+    private void updateVolume() {
+        double weight = Utils.parseDoubleSafe(etWeight.getText().toString());
+        double distance = Utils.parseDoubleSafe(etDistance.getText().toString());
+        double volume = weight * distance;
+
+        // Solo actualizar si el usuario no ha escrito manualmente algo distinto
+        String currentVolume = etVolume.getText().toString();
+        if (Utils.isEmpty(currentVolume) || Double.parseDouble(currentVolume) != volume) {
+            etVolume.setText(String.valueOf(volume));
+        }
     }
 
     private void saveShipment() {
-        // Validaciones básicas
         if (Utils.isEmpty(etObject.getText().toString())
                 || Utils.isEmpty(etAddress.getText().toString())
                 || Utils.isEmpty(etWeight.getText().toString())
-                || Utils.isEmpty(etDistance.getText().toString())) {
+                || Utils.isEmpty(etDistance.getText().toString())
+                || Utils.isEmpty(etVolume.getText().toString())) {
             Utils.toast(this, "Completa todos los campos obligatorios.");
             return;
         }
 
-        double weight   = Utils.parseDoubleSafe(etWeight.getText().toString());
+        double weight = Utils.parseDoubleSafe(etWeight.getText().toString());
         double distance = Utils.parseDoubleSafe(etDistance.getText().toString());
-        double volume   = weight * distance; // 🔹 Cálculo del volumen
-        String code     = Utils.generateShipmentCode();
+        double volume = Utils.parseDoubleSafe(etVolume.getText().toString()); // Volumen editable
+        String code = generateShipmentCode();
 
-        ContentValues cv = new ContentValues();
-        cv.put("shipment_code", code);
-        cv.put("object_desc", etObject.getText().toString().trim());
-        cv.put("receiver_address", etAddress.getText().toString().trim());
-        cv.put("weight_kg", weight);
-        cv.put("distance_km", distance);
-        cv.put("volume_m3", volume); // 🔹 Se guarda el volumen en la DB
-        cv.put("status", "CREADO");
+        Map<String, Object> body = new HashMap<>();
+        body.put("user", userId);
+        body.put("shipment_code", code);
+        body.put("object_desc", etObject.getText().toString().trim());
+        body.put("receiver_address", etAddress.getText().toString().trim());
+        body.put("weight_kg", weight);
+        body.put("distance_km", distance);
+        body.put("volume_m3", volume);
+        body.put("status", "CREADO");
 
-        long shipmentId = -1;
-        try {
-            shipmentId = db.insert("shipments", cv);
-            Log.d("DB_DEBUG", "Insertando envío: " + cv);
-            Log.d("DB_DEBUG", "Resultado insert: " + shipmentId);
-        } catch (Exception e) {
-            Log.e("DB_ERROR", "Error al insertar envío", e);
-            Utils.toast(this, "❌ Error en la base de datos: " + e.getMessage());
-            return;
-        }
+        apiService.createShipment(body).enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (response.isSuccessful()) {
+                    Utils.toastLong(ShipmentFormActivity.this,
+                            "✅ Envío creado.\nCódigo: " + code + "\nVolumen: " + volume + " m³");
+                    setResult(RESULT_OK);
+                    finish();
+                } else {
+                    try {
+                        String errorBody = response.errorBody() != null ? response.errorBody().string() : "Sin cuerpo de error";
+                        Utils.toastLong(ShipmentFormActivity.this,
+                                "❌ Error al crear el envío.\nHTTP " + response.code() + "\n" + errorBody);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Utils.toast(ShipmentFormActivity.this, "❌ Error desconocido al leer respuesta.");
+                    }
+                }
+            }
 
-        if (shipmentId <= 0) {
-            Utils.toast(this, "❌ Error al guardar el envío (verifica la tabla shipments).");
-            return;
-        }
-
-        try {
-            ContentValues ev = new ContentValues();
-            ev.put("shipment_id", shipmentId);
-            ev.put("status", "CREADO");
-            ev.put("location", "Origen");
-            db.insert("tracking_events", ev);
-        } catch (Exception e) {
-            Log.e("DB_ERROR", "Error al insertar evento de tracking", e);
-        }
-
-        Utils.toastLong(this, "✅ Envío creado.\nCódigo: " + code + "\nVolumen: " + volume + " m³");
-
-        // Indicamos que la creación fue exitosa y cerramos la activity
-        setResult(RESULT_OK);
-        finish();
-    }
-
-    // 🔹 Este método se ejecuta cada vez que la Activity vuelve al frente
-    @Override
-    protected void onResume() {
-        super.onResume();
-        loadShipments(); // refresca los datos
-    }
-
-    private void loadShipments() {
-        // 🧩 Aquí puedes agregar la lógica para recargar los envíos si es necesario
-        Log.d("SHIPMENT_FORM", "Recargando envíos...");
-        // Normalmente, esta función estaría en ShipmentListActivity
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (db != null) db.closeDB();
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                Utils.toast(ShipmentFormActivity.this, "Error de red: " + t.getMessage());
+            }
+        });
     }
 }

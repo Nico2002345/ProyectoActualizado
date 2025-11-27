@@ -8,21 +8,39 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ingsoftcalvoproy.R;
-import com.example.ingsoftcalvoproy.database.Db;
+import com.example.ingsoftcalvoproy.network.ApiClient;
+import com.example.ingsoftcalvoproy.network.ApiService;
+import com.example.ingsoftcalvoproy.utils.Utils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterMerchandiseActivity extends AppCompatActivity {
 
     private EditText etDescription, etWeight, etVolume, etAddress;
     private Button btnRegister;
-    private Db db;
-    private int userId = 1; // ⚠️ Temporal: reemplazar con ID real del usuario logueado
+    private ApiService apiService;
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_merchandise);
 
-        db = new Db(this);
+        // Obtener el userId del Intent
+        userId = getIntent().getIntExtra("USER_ID", -1);
+
+        if (userId == -1) {
+            Toast.makeText(this, "Error: Usuario no identificado", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        apiService = ApiClient.getClient().create(ApiService.class);
 
         etDescription = findViewById(R.id.etDescription);
         etWeight = findViewById(R.id.etWeight);
@@ -53,21 +71,31 @@ public class RegisterMerchandiseActivity extends AppCompatActivity {
             return;
         }
 
-        long id = db.createMerchandise(userId, desc, weight, volume, address);
-        if (id > 0) {
-            Toast.makeText(this, "Mercancía registrada correctamente", Toast.LENGTH_SHORT).show();
-            etDescription.setText("");
-            etWeight.setText("");
-            etVolume.setText("");
-            etAddress.setText("");
-        } else {
-            Toast.makeText(this, "Error al registrar mercancía", Toast.LENGTH_SHORT).show();
-        }
-    }
+        Map<String, Object> body = new HashMap<>();
+        body.put("user", userId);
+        body.put("description", desc);
+        body.put("weight_kg", weight);
+        body.put("volume_m3", volume);
+        body.put("address", address);
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        db.closeDB();
+        apiService.createMerch(body).enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(RegisterMerchandiseActivity.this, "Mercancía registrada correctamente", Toast.LENGTH_SHORT).show();
+                    etDescription.setText("");
+                    etWeight.setText("");
+                    etVolume.setText("");
+                    etAddress.setText("");
+                } else {
+                    Toast.makeText(RegisterMerchandiseActivity.this, "Error al registrar mercancía", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                Toast.makeText(RegisterMerchandiseActivity.this, "Error de red: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

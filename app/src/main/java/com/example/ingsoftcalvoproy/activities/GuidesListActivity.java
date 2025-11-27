@@ -1,6 +1,5 @@
 package com.example.ingsoftcalvoproy.activities;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -9,86 +8,97 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ingsoftcalvoproy.R;
-import com.example.ingsoftcalvoproy.database.Db;
+import com.example.ingsoftcalvoproy.dto.ShipmentDTO;
+import com.example.ingsoftcalvoproy.network.ApiClient;
+import com.example.ingsoftcalvoproy.network.ApiService;
 import com.example.ingsoftcalvoproy.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
- * Lista de guías de envío, con opción de clasificación por peso, volumen y distancia.
+ * Lista de guías de envío usando APIs.
  */
 public class GuidesListActivity extends AppCompatActivity {
 
-    private Db db;
     private ListView lvGuides;
     private Button btnClassify;
     private ArrayList<String> data = new ArrayList<>();
+    private ApiService api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guides_list);
 
-        db = new Db(this);
         lvGuides = findViewById(R.id.lvGuides);
-        btnClassify = findViewById(R.id.btnClassify); // 🔹 Agrega este botón en el XML
+        btnClassify = findViewById(R.id.btnClassify);
+        api = ApiClient.getClient().create(ApiService.class);
 
         loadGuides();
 
-        // 🔹 Botón para clasificar guías
-        btnClassify.setOnClickListener(v -> {
-            classifyGuides();
-            loadGuides();
-            Utils.toast(this, "Guías clasificadas correctamente ✅");
+        btnClassify.setOnClickListener(v -> classifyGuides());
+    }
+
+    /** Carga las guías desde la API */
+    private void loadGuides() {
+        api.getAllShipmentsFromAPI().enqueue(new Callback<List<ShipmentDTO>>() {
+            @Override
+            public void onResponse(Call<List<ShipmentDTO>> call, Response<List<ShipmentDTO>> response) {
+                if (!response.isSuccessful() || response.body() == null) {
+                    Utils.toast(GuidesListActivity.this, "No se pudieron cargar las guías");
+                    return;
+                }
+
+                data.clear();
+                List<ShipmentDTO> shipments = response.body();
+                for (ShipmentDTO s : shipments) {
+                    String weightClass = Utils.classifyWeight(s.getWeightKg());
+                    String volumeClass = Utils.classifyVolume(s.getVolumeM3());
+                    String distanceClass = Utils.classifyDistance(s.getDistanceKm());
+
+                    data.add("Envío ID: " + s.getId() +
+                            "\nCódigo: " + s.getShipmentCode() +
+                            "\nPeso: " + s.getWeightKg() + " kg (" + weightClass + ")" +
+                            " | Vol: " + s.getVolumeM3() + " m³ (" + volumeClass + ")" +
+                            "\nDistancia: " + s.getDistanceKm() + " km (" + distanceClass + ")" +
+                            "\nEstado: " + s.getStatus());
+                }
+
+                lvGuides.setAdapter(new ArrayAdapter<>(GuidesListActivity.this,
+                        android.R.layout.simple_list_item_1, data));
+            }
+
+            @Override
+            public void onFailure(Call<List<ShipmentDTO>> call, Throwable t) {
+                Utils.toast(GuidesListActivity.this, "Error cargando guías: " + t.getMessage());
+            }
         });
     }
 
-    /**
-     * Carga las guías desde la base de datos.
-     */
-    private void loadGuides() {
-        data.clear();
-        Cursor c = db.raw("""
-            SELECT g.guide_number, 
-                   s.weight_kg, s.volume_m3, s.distance_km, 
-                   s.id AS shipment_id
-            FROM guides g
-            JOIN shipments s ON s.id = g.shipment_id
-            ORDER BY g.id DESC
-        """, null);
-
-        while (c.moveToNext()) {
-            String guide = c.getString(0);
-            double weight = c.getDouble(1);
-            double volume = c.getDouble(2);
-            double distance = c.getDouble(3);
-            int shipmentId = c.getInt(4);
-
-            String weightClass = Utils.classifyWeight(weight);
-            String volumeClass = Utils.classifyVolume(volume);
-            String distanceClass = Utils.classifyDistance(distance);
-
-            data.add("Guía: " + guide +
-                    "\nPeso: " + weight + " kg (" + weightClass + ")" +
-                    " | Vol: " + volume + " m³ (" + volumeClass + ")" +
-                    "\nDistancia: " + distance + " km (" + distanceClass + ")" +
-                    "\nEnvío ID: " + shipmentId);
-        }
-        c.close();
-
-        lvGuides.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data));
-    }
-
-    /**
-     * Clasifica las guías en la BD (actualiza buckets de peso, volumen y distancia).
-     */
+    /** Clasifica las guías vía API */
     private void classifyGuides() {
-        db.classifyGuides();
-    }
+        api.classifyGuides().enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (response.isSuccessful()) {
+                    Utils.toast(GuidesListActivity.this, "Guías clasificadas correctamente ✅");
+                    loadGuides(); // recargar datos actualizados
+                } else {
+                    Utils.toast(GuidesListActivity.this, "Error clasificando guías");
+                }
+            }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        db.closeDB();
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                Utils.toast(GuidesListActivity.this, "Error clasificando guías: " + t.getMessage());
+            }
+        });
     }
 }

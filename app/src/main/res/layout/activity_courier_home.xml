@@ -13,6 +13,21 @@
         <!--  🔹 Botones  -->
         <Button android:id="@+id/btnVerGuias" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="📄 Ver Guías Asignadas" android:backgroundTint="#1976D2" android:textColor="@android:color/white" android:layout_marginBottom="12dp"/>
         <Button android:id="@+id/btnRegistrarEntrega" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="✅ Registrar Entrega" android:backgroundTint="#03A9F4" android:textColor="@android:color/white" android:layout_marginBottom="12dp"/>
+
+        <!--  🔹 Selector de envío  -->
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Seleccionar envío:" android:textSize="16sp" android:textColor="#212121" android:textStyle="bold" android:layout_marginTop="8dp" android:layout_marginBottom="8dp"/>
+        <Spinner android:id="@+id/spShipments" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@android:drawable/btn_dropdown" android:padding="12dp" android:layout_marginBottom="12dp"/>
+
         <Button android:id="@+id/btnActualizarEstado" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="🔄 Actualizar Estado" android:backgroundTint="#0288D1" android:textColor="@android:color/white"/>
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🚪 Cerrar sesión"
+            android:backgroundTint="#D32F2F"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp" />
+
     </LinearLayout>
 </ScrollView>

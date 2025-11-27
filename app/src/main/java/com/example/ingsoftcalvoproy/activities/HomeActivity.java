@@ -17,7 +17,7 @@ import com.example.ingsoftcalvoproy.utils.Utils;
 public class HomeActivity extends AppCompatActivity {
 
     private TextView tvWelcome, tvRole;
-    private Button btnShipments, btnAnalytics, btnTracking, btnPickups, btnLogout;
+    private Button btnShipments, btnAnalytics, btnTracking, btnPickups, btnLogout, btnUsersShipments, btnNotifications;
 
     private int userId;
     private String userName;
@@ -36,6 +36,8 @@ public class HomeActivity extends AppCompatActivity {
         btnTracking = findViewById(R.id.btnTracking);
         btnPickups = findViewById(R.id.btnPickups);
         btnLogout = findViewById(R.id.btnLogout);
+        btnUsersShipments = findViewById(R.id.btnUsersShipments);
+        btnNotifications = findViewById(R.id.btnNotifications);
 
         // === Obtener datos del usuario desde el intent ===
         userId = getIntent().getIntExtra("USER_ID", -1);
@@ -47,9 +49,11 @@ public class HomeActivity extends AppCompatActivity {
         tvRole.setText("Rol: " + (userRole != null ? userRole : "USUARIO"));
 
         // === Navegación ===
-        btnShipments.setOnClickListener(v ->
-                startActivity(new Intent(this, ShipmentListActivity.class))
-        );
+        btnShipments.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ShipmentListActivity.class);
+            intent.putExtra("USER_ID", userId); // Pasamos el userId
+            startActivity(intent);
+        });
 
         btnAnalytics.setOnClickListener(v ->
                 startActivity(new Intent(this, AnalyticsActivity.class))
@@ -59,9 +63,24 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(this, TrackingActivity.class))
         );
 
-        btnPickups.setOnClickListener(v ->
-                startActivity(new Intent(this, PickupsListActivity.class))
-        );
+        btnPickups.setOnClickListener(v -> {
+            Intent intent = new Intent(this, RequestPickupActivity.class);
+            intent.putExtra("USER_ID", userId);
+            startActivity(intent);
+        });
+
+        // 🔹 Nuevo botón: abrir UsersShipmentsActivity
+        btnUsersShipments.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, UsersShipmentsActivity.class);
+            startActivity(intent);
+        });
+
+        // 🔹 Botón de notificaciones
+        btnNotifications.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, NotificationsActivity.class);
+            intent.putExtra("USER_ID", userId);
+            startActivity(intent);
+        });
 
         btnLogout.setOnClickListener(v -> logout());
     }

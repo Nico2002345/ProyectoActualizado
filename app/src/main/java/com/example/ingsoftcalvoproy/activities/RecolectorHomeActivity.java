@@ -15,14 +15,24 @@ public class RecolectorHomeActivity extends AppCompatActivity {
     private TextView tvWelcome, tvRole;
     private Button btnViewPickups, btnTrackRoute, btnReportCompletion, btnLogout;
 
-    // Datos simulados de sesión
-    private int userId = 2; // ejemplo de ID
-    private String userName = "Recolector";
+    private int userId;
+    private String userName;
+    private String userRole;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recolector_home);
+
+        // Obtener datos del Intent
+        userId = getIntent().getIntExtra("USER_ID", -1);
+        userName = getIntent().getStringExtra("USER_NAME");
+        userRole = getIntent().getStringExtra("USER_ROLE");
+
+        if (userId == -1) {
+            userName = "Recolector";
+            userRole = "RECOLECTOR";
+        }
 
         // 🔹 Inicializar vistas
         tvWelcome = findViewById(R.id.tvWelcome);
@@ -43,6 +53,7 @@ public class RecolectorHomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, PickupsListActivity.class);
                 intent.putExtra("USER_ID", userId);
                 intent.putExtra("USER_NAME", userName);
+                intent.putExtra("USER_ROLE", userRole);
                 startActivity(intent);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -58,8 +69,17 @@ public class RecolectorHomeActivity extends AppCompatActivity {
 
         // 🔹 Botón: Reportar Completadas
         btnReportCompletion.setOnClickListener(v -> {
-            Toast.makeText(this, "Funcionalidad de reporte en construcción", Toast.LENGTH_SHORT).show();
-            // Aquí iría la lógica para actualizar estados en la DB
+            try {
+                Intent intent = new Intent(this, PickupsListActivity.class);
+                intent.putExtra("USER_ID", userId);
+                intent.putExtra("USER_NAME", userName);
+                intent.putExtra("USER_ROLE", userRole);
+                intent.putExtra("SHOW_COMPLETED", true); // Mostrar completadas
+                startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error al abrir completadas", Toast.LENGTH_LONG).show();
+            }
         });
 
         // 🔹 Botón: Logout
@@ -70,4 +90,3 @@ public class RecolectorHomeActivity extends AppCompatActivity {
         });
     }
 }
-

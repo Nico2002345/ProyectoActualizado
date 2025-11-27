@@ -35,29 +35,11 @@
 
         <!-- 🔹 Botones de acción -->
         <Button
-            android:id="@+id/btnAssignCollectors"
+            android:id="@+id/btnAssignPickups"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="👥 Asignar Recolectores"
+            android:text="📦 Asignar Recolector y Camión"
             android:backgroundTint="#2196F3"
-            android:textColor="@android:color/white"
-            android:layout_marginBottom="12dp" />
-
-        <Button
-            android:id="@+id/btnManagePickups"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="📍 Gestionar Recogidas"
-            android:backgroundTint="#03A9F4"
-            android:textColor="@android:color/white"
-            android:layout_marginBottom="12dp" />
-
-        <Button
-            android:id="@+id/btnAssignVehicles"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="🚛 Asignar Vehículos"
-            android:backgroundTint="#0288D1"
             android:textColor="@android:color/white"
             android:layout_marginBottom="20dp" />
 

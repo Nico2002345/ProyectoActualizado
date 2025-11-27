@@ -13,63 +13,45 @@ import com.example.ingsoftcalvoproy.R;
 public class AsignadorActivity extends AppCompatActivity {
 
     private TextView tvWelcome, tvRole;
-    private Button btnAssignCollectors, btnManagePickups, btnAssignVehicles, btnLogout;
+    private Button btnAssignPickups, btnLogout;
 
-    // Simulación de datos de sesión
-    private int userId = 1;
-    private String userName = "Asignador";
+    private int userId;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_asignador);
 
+        // Obtener datos del Intent
+        userId = getIntent().getIntExtra("USER_ID", -1);
+        userName = getIntent().getStringExtra("USER_NAME");
+
+        if (userId == -1 || userName == null) {
+            userId = 1;
+            userName = "Asignador";
+        }
+
         // 🔹 Inicializar vistas
         tvWelcome = findViewById(R.id.tvWelcome);
         tvRole = findViewById(R.id.tvRole);
-        btnAssignCollectors = findViewById(R.id.btnAssignCollectors);
-        btnManagePickups = findViewById(R.id.btnManagePickups);
-        btnAssignVehicles = findViewById(R.id.btnAssignVehicles);
+        btnAssignPickups = findViewById(R.id.btnAssignPickups);
         btnLogout = findViewById(R.id.btnLogout);
 
         // 🔹 Configurar nombre y rol
         tvWelcome.setText("Bienvenido, " + userName);
         tvRole.setText("Rol: ASIGNADOR");
 
-        // 🔹 Configurar botones y acciones con manejo seguro
-        btnAssignCollectors.setOnClickListener(v -> {
+        // 🔹 Botón: Asignar Recolector y Camión
+        btnAssignPickups.setOnClickListener(v -> {
             try {
-                Intent intent = new Intent(this, CollectorsListActivity.class);
+                Intent intent = new Intent(this, AssignPickupsActivity.class);
                 intent.putExtra("USER_ID", userId);
                 intent.putExtra("USER_NAME", userName);
                 startActivity(intent);
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(this, "Error al abrir lista de recolectores", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        btnManagePickups.setOnClickListener(v -> {
-            try {
-                Intent intent = new Intent(this, PickupsListActivity.class);
-                intent.putExtra("USER_ID", userId);
-                intent.putExtra("USER_NAME", userName);
-                startActivity(intent);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Error al abrir lista de recogidas", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        btnAssignVehicles.setOnClickListener(v -> {
-            try {
-                Intent intent = new Intent(this, TrucksListActivity.class);
-                intent.putExtra("USER_ID", userId);
-                intent.putExtra("USER_NAME", userName);
-                startActivity(intent);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Error al abrir lista de vehículos", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Error al abrir asignación", Toast.LENGTH_LONG).show();
             }
         });
 

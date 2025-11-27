@@ -1,97 +1,164 @@
 package com.example.ingsoftcalvoproy.activities;
-
-import android.database.Cursor;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.ingsoftcalvoproy.R;
-import com.example.ingsoftcalvoproy.database.Db;
+import com.example.ingsoftcalvoproy.network.ApiClient;
+import com.example.ingsoftcalvoproy.network.ApiService;
 import com.example.ingsoftcalvoproy.utils.Utils;
+import java.util.List;
+import java.util.Map;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-/**
- * Permite consultar los eventos de seguimiento (tracking)
- * por ID o por código de envío (ENV-...).
- * Dirigido principalmente al destinatario.
- */
 public class TrackingActivity extends AppCompatActivity {
 
-    private Db db;
     private EditText etShipment;
     private TextView tvEvents;
-    private Button btnSearch;
+    private Button btnSearch, btnViewMap;
+
+    private ApiService apiService;
+
+    // Latitud y longitud retornadas por el backend
+    private double shipmentLat = 0;
+    private double shipmentLng = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracking);
 
-        db = new Db(this);
         etShipment = findViewById(R.id.etShipment);
         tvEvents = findViewById(R.id.tvEvents);
         btnSearch = findViewById(R.id.btnSearch);
+        btnViewMap = findViewById(R.id.btnViewMap);
 
-        btnSearch.setOnClickListener(v -> searchShipment());
+        apiService = ApiClient.getClient().create(ApiService.class);
+
+        btnSearch.setOnClickListener(v -> fetchTrackingEvents());
+        btnViewMap.setOnClickListener(v -> openMap());
     }
 
     /**
-     * Realiza la búsqueda de eventos de seguimiento.
+     * Paso 1: Obtener información del envío por código
+     * Paso 2: Obtener sus eventos de tracking
      */
-    private void searchShipment() {
-        String input = etShipment.getText().toString().trim();
+    private void fetchTrackingEvents() {
+        String shipmentCode = etShipment.getText().toString().trim();
 
-        if (Utils.isEmpty(input)) {
-            Utils.toast(this, "Por favor ingresa un ID o código de envío.");
+        if (shipmentCode.isEmpty()) {
+            Utils.toast(this, "Por favor ingresa un código de envío.");
             return;
         }
 
-        // 🔹 Si el usuario ingresa un código ENV-XXXX, obtener su ID interno
-        String shipmentId = input;
-        if (input.toUpperCase().startsWith("ENV-")) {
-            Cursor c1 = db.raw("SELECT id FROM shipments WHERE shipment_code = ?", new String[]{input});
-            if (c1.moveToFirst()) {
-                shipmentId = String.valueOf(c1.getInt(0));
-            } else {
-                Utils.toast(this, "No se encontró el envío con ese código.");
-                c1.close();
-                return;
+        // Llamado para obtener la información del envío
+        Call<Map<String, Object>> shipmentCall = apiService.getShipmentByCode(shipmentCode);
+
+        shipmentCall.enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (!response.isSuccessful() || response.body() == null) {
+                    Utils.toast(TrackingActivity.this, "No se encontró el envío.");
+                    return;
+                }
+
+                Map<String, Object> shipment = response.body();
+
+                // Guardar coordenadas
+                if (shipment.get("latitude") != null)
+                    shipmentLat = ((Number) shipment.get("latitude")).doubleValue();
+
+                if (shipment.get("longitude") != null)
+                    shipmentLng = ((Number) shipment.get("longitude")).doubleValue();
+
+                // Obtener ID para los eventos
+                int shipmentId = ((Number) shipment.get("id")).intValue();
+
+                fetchEvents(shipmentId);
             }
-            c1.close();
-        }
 
-        // 🔹 Consultar eventos
-        Cursor c = db.raw("""
-            SELECT status, location, datetime(event_time)
-            FROM tracking_events
-            WHERE shipment_id = ?
-            ORDER BY event_time DESC
-        """, new String[]{shipmentId});
-
-        StringBuilder sb = new StringBuilder();
-        int counter = 0;
-
-        while (c.moveToNext()) {
-            counter++;
-            sb.append(counter).append(". ")
-                    .append(c.getString(0)).append(" - ")
-                    .append(c.getString(1)).append("\n🕒 ")
-                    .append(c.getString(2)).append("\n\n");
-        }
-        c.close();
-
-        if (counter == 0) {
-            tvEvents.setText("No hay eventos registrados para este envío.");
-        } else {
-            tvEvents.setText(sb.toString());
-        }
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                Utils.toast(TrackingActivity.this, "Error al obtener el envío: " + t.getMessage());
+            }
+        });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        db.closeDB();
+    /**
+     * Obtiene el historial de tracking
+     */
+    private void fetchEvents(int shipmentId) {
+        Call<List<Map<String, Object>>> eventsCall = apiService.getTrackingEvents(shipmentId);
+
+        eventsCall.enqueue(new Callback<List<Map<String, Object>>>() {
+            @Override
+            public void onResponse(Call<List<Map<String, Object>>> call, Response<List<Map<String, Object>>> response) {
+                if (!response.isSuccessful() || response.body() == null) {
+                    Utils.toast(TrackingActivity.this, "No se pudieron obtener los eventos.");
+                    return;
+                }
+
+                List<Map<String, Object>> events = response.body();
+
+                if (events.isEmpty()) {
+                    tvEvents.setText("No hay eventos registrados para este envío.");
+                    return;
+                }
+
+                StringBuilder sb = new StringBuilder();
+                int counter = 0;
+
+                for (Map<String, Object> event : events) {
+                    counter++;
+
+                    String status = String.valueOf(event.get("status"));
+                    String location = String.valueOf(event.get("location"));
+                    String time = String.valueOf(event.get("event_time"));
+
+                    sb.append(counter)
+                            .append(". ").append(status)
+                            .append(" - ").append(location)
+                            .append("\n🕒 ").append(time)
+                            .append("\n\n");
+                }
+
+                tvEvents.setText(sb.toString());
+            }
+
+            @Override
+            public void onFailure(Call<List<Map<String, Object>>> call, Throwable t) {
+                Utils.toast(TrackingActivity.this, "Error al obtener eventos: " + t.getMessage());
+            }
+        });
+    }
+
+    /**
+     * Abre Google Maps con la ubicación del paquete
+     */
+    private void openMap() {
+        if (shipmentLat == 0 && shipmentLng == 0) {
+            Utils.toast(this, "No se ha obtenido la ubicación del envío.");
+            return;
+        }
+
+        Uri gmmIntentUri = Uri.parse(
+                "https://www.google.com/maps/dir/?api=1" +
+                        "&destination=" + shipmentLat + "," + shipmentLng +
+                        "&travelmode=driving"
+        );
+
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+
+        try {
+            startActivity(mapIntent);
+        } catch (Exception e) {
+            Utils.toast(this, "No se pudo abrir Google Maps.");
+        }
     }
 }

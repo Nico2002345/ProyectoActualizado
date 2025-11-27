@@ -6,6 +6,9 @@ package com.example.ingsoftcalvoproy.utils;
  */
 public class Constants {
 
+    // === Servidor API ===
+    public static final String BASE_URL = "https://fakestoreapi.com/";
+
     // === Roles de usuario ===
     public static final String ROLE_USER = "USUARIO";
     public static final String ROLE_REPARTIDOR = "REPARTIDOR";

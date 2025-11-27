@@ -6,16 +6,22 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.example.ingsoftcalvoproy.activities.ProfileActivity;
+import com.example.ingsoftcalvoproy.network.ApiService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Funciones utilitarias reutilizables en el proyecto.
  */
 public class Utils {
-
+    private static ApiService apiService;
     // ===============================
     // 🔹 TOASTS
     // ===============================
@@ -148,4 +154,19 @@ public class Utils {
                 "Estado actual: " + status + "\n" +
                 "Fecha: " + now();
     }
+
+    public static ApiService getApiService() {
+        if (apiService == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("http://10.0.2.2:8000/api/") // URL de tu API
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            apiService = retrofit.create(ApiService.class);
+        }
+        return apiService;
+    }
+
+    public static void saveUserSession(ProfileActivity profileActivity, Map<String, Object> user) {
+        if (user == null) return;
+}
 }

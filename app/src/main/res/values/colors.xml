@@ -20,5 +20,10 @@
 
     <!-- 🔹 Añadido para eliminar error -->
     <color name="purple_500">#6200EE</color>
+
+    <color name="colorPressed">#FFCC00</color>
+    <color name="colorSelected">#FFA500</color>
+    <color name="colorFocused">#66BB6A</color>
+    <color name="colorDefault">#2196F3</color>
 </resources>
 

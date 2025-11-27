@@ -1,121 +1,111 @@
 package com.example.ingsoftcalvoproy.activities;
 
-import android.database.Cursor;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ingsoftcalvoproy.R;
-import com.example.ingsoftcalvoproy.database.Db;
+import com.example.ingsoftcalvoproy.dto.ShipmentDTO;
+import com.example.ingsoftcalvoproy.network.ApiClient;
+import com.example.ingsoftcalvoproy.network.ApiService;
 import com.example.ingsoftcalvoproy.utils.Utils;
 
-/**
- * Panel principal para el Funcionario de Logística.
- * Permite obtener guías, balancear cargas y generar guías clasificadas.
- */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class FuncionarioLogisticaActivity extends AppCompatActivity {
 
-    private Button btnObtenerGuias, btnBalancearCargas, btnGenerarGuias;
-    private Db db;
+    private Button btnObtenerGuias, btnBalancearCargas;
+    private ListView lvGuias;
+    private TextView tvGuiasTitle;
+    private ApiService api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_funcionario_logistico);
 
-        db = new Db(this);
+        api = ApiClient.getClient().create(ApiService.class);
 
         btnObtenerGuias = findViewById(R.id.btnObtenerGuias);
         btnBalancearCargas = findViewById(R.id.btnBalancearCargas);
-        btnGenerarGuias = findViewById(R.id.btnGenerarGuias);
+        lvGuias = findViewById(R.id.lvGuias);
+        tvGuiasTitle = findViewById(R.id.tvGuiasTitle);
 
-        // Click listeners
         btnObtenerGuias.setOnClickListener(v -> obtenerGuias());
         btnBalancearCargas.setOnClickListener(v -> balancearCargas());
-        btnGenerarGuias.setOnClickListener(v -> generarGuias());
     }
 
-    // === OBTENER GUÍAS PARA MONITOREO ===
+    /** Obtiene todas las guías (shipments) */
     private void obtenerGuias() {
-        try {
-            // 1️⃣ Primero generamos guías para todos los envíos que no tengan guía
-            Cursor cShipments = db.raw(
-                    "SELECT id FROM shipments WHERE id NOT IN (SELECT shipment_id FROM guides)", null);
-            if (cShipments.moveToFirst()) {
-                do {
-                    int shipmentId = cShipments.getInt(0);
-                    db.getWritableDatabase().execSQL(
-                            "INSERT INTO guides (shipment_id, guide_number) VALUES (?, ?)",
-                            new Object[]{shipmentId, "GEN" + shipmentId});
-                } while (cShipments.moveToNext());
+        api.getAllShipmentsFromAPI().enqueue(new Callback<List<ShipmentDTO>>() {
+            @Override
+            public void onResponse(Call<List<ShipmentDTO>> call, Response<List<ShipmentDTO>> response) {
+                if (!response.isSuccessful() || response.body() == null || response.body().isEmpty()) {
+                    Utils.toast(FuncionarioLogisticaActivity.this, "No hay guías disponibles.");
+                    tvGuiasTitle.setVisibility(View.GONE);
+                    lvGuias.setVisibility(View.GONE);
+                    return;
+                }
+
+                // Preparar los datos para el ListView
+                List<String> guiasData = new ArrayList<>();
+                for (ShipmentDTO s : response.body()) {
+                    String guiaInfo = String.format(
+                            "📦 %s\n" +
+                                    "Estado: %s\n" +
+                                    "Destino: %s\n" +
+                                    "Peso: %.2f kg | Volumen: %.3f m³ | Distancia: %.1f km",
+                            s.getShipmentCode(),
+                            s.getStatus(),
+                            s.getReceiverAddress(),
+                            s.getWeightKg(),
+                            s.getVolumeM3(),
+                            s.getDistanceKm()
+                    );
+                    guiasData.add(guiaInfo);
+                }
+
+                // Configurar el adaptador del ListView
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                        FuncionarioLogisticaActivity.this,
+                        android.R.layout.simple_list_item_1,
+                        guiasData
+                );
+                lvGuias.setAdapter(adapter);
+
+                // Mostrar el título y la lista
+                tvGuiasTitle.setVisibility(View.VISIBLE);
+                lvGuias.setVisibility(View.VISIBLE);
+
+                Utils.toast(FuncionarioLogisticaActivity.this,
+                        "✅ Se encontraron " + response.body().size() + " guías");
             }
-            cShipments.close();
 
-            // 2️⃣ Ahora obtenemos todas las guías con información completa
-            Cursor c = db.raw(
-                    "SELECT g.id, g.guide_number, s.shipment_code, s.receiver_address, s.weight_kg, s.volume_m3 " +
-                            "FROM guides g " +
-                            "JOIN shipments s ON g.shipment_id = s.id", null);
-
-            if (c.moveToFirst()) {
-                StringBuilder sb = new StringBuilder();
-                do {
-                    sb.append("Guía ID: ").append(c.getInt(0))
-                            .append(", Número: ").append(c.getString(1))
-                            .append(", Código Envío: ").append(c.getString(2))
-                            .append(", Destino: ").append(c.getString(3))
-                            .append(", Peso: ").append(c.getDouble(4))
-                            .append(" kg, Volumen: ").append(c.getDouble(5))
-                            .append(" m³\n");
-                } while (c.moveToNext());
-
-                Utils.toastLong(this, sb.toString());
-            } else {
-                Utils.toast(this, "No hay guías disponibles.");
+            @Override
+            public void onFailure(Call<List<ShipmentDTO>> call, Throwable t) {
+                Utils.toast(FuncionarioLogisticaActivity.this, "Error cargando guías: " + t.getMessage());
+                tvGuiasTitle.setVisibility(View.GONE);
+                lvGuias.setVisibility(View.GONE);
             }
-            c.close();
-
-        } catch (Exception e) {
-            Utils.toast(this, "Error al obtener guías: " + e.getMessage());
-        }
+        });
     }
 
-    // === BALANCEAR CARGAS ===
+    /** Balancea cargas abriendo la actividad de reasignación */
     private void balancearCargas() {
-        try {
-            db.getWritableDatabase().execSQL(
-                    "UPDATE guides SET distance_km = 0 WHERE distance_km IS NULL");
-            Utils.toast(this, "Se balancearon las cargas de las guías.");
-        } catch (Exception e) {
-            Utils.toast(this, "Error al balancear cargas: " + e.getMessage());
-        }
-    }
-
-    // === GENERAR Y ALMACENAR GUÍAS (manual) ===
-    private void generarGuias() {
-        try {
-            Cursor cShipments = db.raw(
-                    "SELECT id FROM shipments WHERE id NOT IN (SELECT shipment_id FROM guides)", null);
-            if (cShipments.moveToFirst()) {
-                do {
-                    int shipmentId = cShipments.getInt(0);
-                    db.getWritableDatabase().execSQL(
-                            "INSERT INTO guides (shipment_id, guide_number) VALUES (?, ?)",
-                            new Object[]{shipmentId, "GEN" + shipmentId});
-                } while (cShipments.moveToNext());
-            }
-            cShipments.close();
-
-            Utils.toast(this, "Se generaron y almacenaron las guías.");
-        } catch (Exception e) {
-            Utils.toast(this, "Error al generar guías: " + e.getMessage());
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        db.closeDB();
+        Intent intent = new Intent(this, BalancearCargasActivity.class);
+        startActivity(intent);
     }
 }

@@ -49,19 +49,33 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Balancear cargas y agilizar rutas"
-                    android:layout_marginBottom="12dp"
-                    android:backgroundTint="#2196F3"
-                    android:textColor="@android:color/white"/>
-
-                <Button
-                    android:id="@+id/btnGenerarGuias"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Generar y almacenar guías clasificadas"
                     android:backgroundTint="#2196F3"
                     android:textColor="@android:color/white"/>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <!-- Lista de Guías -->
+        <TextView
+            android:id="@+id/tvGuiasTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guías Disponibles:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#212121"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"
+            android:visibility="gone"/>
+
+        <ListView
+            android:id="@+id/lvGuias"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp"
+            android:background="@android:color/white"
+            android:visibility="gone"/>
+
     </LinearLayout>
 </ScrollView>
