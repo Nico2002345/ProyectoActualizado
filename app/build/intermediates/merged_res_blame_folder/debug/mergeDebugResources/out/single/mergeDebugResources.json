@@ -1,0 +1,198 @@
+[
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_conductor_rutas.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_conductor_rutas.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_shipment_form.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_shipment_form.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_guides_list.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_guides_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_recolector_home.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_recolector_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\drawable_background_login.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\drawable\\background_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_dialog_assign_collector.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\dialog_assign_collector.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_trucks_list.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_trucks_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_profile.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_asignador.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_asignador.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_home.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_register_merchandise.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_register_merchandise.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_funcionario_logistico.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_funcionario_logistico.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_pickups_list.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_pickups_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_tracking.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_tracking.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\drawable_ic_logo.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\drawable\\ic_logo.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_login.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_item_post.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\item_post.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_analytics.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_analytics.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-debug-37:/layout_activity_courier_home.xml.flat",
+        "source": "com.example.ingsoftcalvoproy.app-main-39:/layout/activity_courier_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_courier_home.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_courier_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_mostrar_guias.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_mostrar_guias.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_users_shipments.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_users_shipments.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_notifications.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_notifications.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_shipment_list.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_shipment_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_request_pickup.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_request_pickup.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_manage_pickups.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_manage_pickups.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_register.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_register.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\drawable_ic_notification.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\drawable\\ic_notification.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_dialog_reasignar_repartidor.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\dialog_reasignar_repartidor.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_pickup_form.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_pickup_form.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_assign_pickups.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_assign_pickups.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_balancear_cargas.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_balancear_cargas.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-debug-37:\\layout_activity_collectors_list.xml.flat",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_collectors_list.xml"
+    }
+]

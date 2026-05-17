@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Asignar Rutas y Cargas"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingBottom="8dp" />
+
+        <!-- Conductor -->
+        <EditText
+            android:id="@+id/etConductorName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre del conductor"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:background="@android:drawable/edit_text" />
+
+        <EditText
+            android:id="@+id/etConductorEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email del conductor"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:layout_marginBottom="16dp"
+            android:background="@android:drawable/edit_text" />
+
+        <Button
+            android:id="@+id/btnGuardarConductor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar Conductor"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Crear camión -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agregar nuevo camión"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/etTruckPlate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Placa"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:background="@android:drawable/edit_text" />
+
+        <EditText
+            android:id="@+id/etTruckKg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Capacidad (kg)"
+            android:inputType="numberDecimal"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:background="@android:drawable/edit_text" />
+
+        <EditText
+            android:id="@+id/etTruckM3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Capacidad (m³)"
+            android:inputType="numberDecimal"
+            android:padding="10dp"
+            android:layout_marginBottom="8dp"
+            android:background="@android:drawable/edit_text" />
+
+        <Button
+            android:id="@+id/btnAddTruck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Agregar Camión"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Spinner para seleccionar camión -->
+        <Spinner
+            android:id="@+id/spinnerCamiones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:prompt="@string/select_truck_prompt"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Lista de envíos -->
+        <ListView
+            android:id="@+id/lvEnvios"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp"
+            android:choiceMode="multipleChoice"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Botón para asignar rutas -->
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Asignar Rutas"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:padding="12dp" />
+
+    </LinearLayout>
+</ScrollView>

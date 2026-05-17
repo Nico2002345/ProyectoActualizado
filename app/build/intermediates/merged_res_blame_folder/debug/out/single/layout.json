@@ -1,0 +1,86 @@
+[
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_shipment_form.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_shipment_form.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_pickup_form.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_pickup_form.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_register.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_register.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_login.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_asignador.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_asignador.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_courier_home.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_courier_home.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_recolector_home.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_recolector_home.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_profile.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_profile.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_trucks_list.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_trucks_list.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_guides_list.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_guides_list.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_analytics.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_analytics.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_tracking.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_tracking.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_manage_pickups.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_manage_pickups.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_collectors_list.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_collectors_list.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_mostrar_guias.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_mostrar_guias.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_register_merchandise.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_register_merchandise.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_funcionario_logistico.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_funcionario_logistico.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_conductor_rutas.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_conductor_rutas.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_shipment_list.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_shipment_list.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_pickups_list.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_pickups_list.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-33:/layout/activity_home.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-36:/layout/activity_home.xml"
+    }
+]

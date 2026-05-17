@@ -1,0 +1,122 @@
+[
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_trucks_list.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_trucks_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_courier_home.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_courier_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_home.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\dialog_assign_collector.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\dialog_assign_collector.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_balancear_cargas.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_balancear_cargas.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_tracking.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_tracking.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_mostrar_guias.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_mostrar_guias.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\item_post.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\item_post.xml"
+    },
+    {
+        "merged": "com.example.ingsoftcalvoproy.app-mergeDebugResources-36:/layout/activity_courier_home.xml",
+        "source": "com.example.ingsoftcalvoproy.app-main-39:/layout/activity_courier_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_analytics.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_analytics.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_pickup_form.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_pickup_form.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_users_shipments.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_users_shipments.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_manage_pickups.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_manage_pickups.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_notifications.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_notifications.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_pickups_list.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_pickups_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_request_pickup.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_request_pickup.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\dialog_reasignar_repartidor.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\dialog_reasignar_repartidor.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_shipment_list.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_shipment_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_login.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_conductor_rutas.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_conductor_rutas.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_profile.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_register.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_register.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_funcionario_logistico.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_funcionario_logistico.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_asignador.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_asignador.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_recolector_home.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_recolector_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_collectors_list.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_collectors_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_register_merchandise.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_register_merchandise.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_shipment_form.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_shipment_form.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_guides_list.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_guides_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-mergeDebugResources-36:\\layout\\activity_assign_pickups.xml",
+        "source": "C:\\Users\\ASUS\\.gradle\\daemon\\8.13\\com.example.ingsoftcalvoproy.app-main-39:\\layout\\activity_assign_pickups.xml"
+    }
+]
