@@ -1,0 +1,67 @@
+{% extends 'tareas/base.html' %}
+
+{% block title %}Eliminar Tarea{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .delete-container {
+        max-width: 500px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .warning-icon {
+        font-size: 60px;
+        color: #dc3545;
+        margin-bottom: 20px;
+    }
+
+    .tarea-info {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+        text-align: left;
+    }
+
+    .tarea-info h3 {
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .tarea-info p {
+        color: #666;
+        margin: 5px 0;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 30px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="delete-container">
+    <div class="warning-icon">⚠️</div>
+    <h1>¿Eliminar esta tarea?</h1>
+    <p style="color: #666; margin: 20px 0;">Esta acción no se puede deshacer.</p>
+
+    <div class="tarea-info">
+        <h3>{{ tarea.titulo }}</h3>
+        <p><strong>Descripción:</strong> {{ tarea.descripcion|default:"Sin descripción" }}</p>
+        <p><strong>Fecha:</strong> {{ tarea.fecha_hora|date:"d/m/Y H:i" }}</p>
+        <p><strong>Estado:</strong> <span class="estado-badge estado-{{ tarea.estado }}">{{ tarea.get_estado_display }}</span></p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-actions">
+            <a href="{% url 'lista_tareas' %}" class="btn btn-secondary" style="background: #6c757d; color: white;">Cancelar</a>
+            <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,159 @@
+{% extends 'tareas/base.html' %}
+
+{% block title %}Editar Tarea{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="datetime-local"],
+    textarea,
+    select {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 30px;
+    }
+
+    .estado-options {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .estado-option {
+        position: relative;
+    }
+
+    .estado-option input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+    }
+
+    .estado-option label {
+        display: block;
+        padding: 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 0;
+    }
+
+    .estado-option input[type="radio"]:checked + label {
+        border-width: 3px;
+    }
+
+    .estado-option.creado label {
+        background: #dc3545;
+        color: white;
+    }
+
+    .estado-option.creado input[type="radio"]:checked + label {
+        border-color: #a71d2a;
+    }
+
+    .estado-option.pendiente label {
+        background: #ffc107;
+        color: #333;
+    }
+
+    .estado-option.pendiente input[type="radio"]:checked + label {
+        border-color: #cc9a06;
+    }
+
+    .estado-option.hecho label {
+        background: #28a745;
+        color: white;
+    }
+
+    .estado-option.hecho input[type="radio"]:checked + label {
+        border-color: #1e7e34;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Editar Tarea</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="titulo">Título *</label>
+            <input type="text" id="titulo" name="titulo" value="{{ tarea.titulo }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" name="descripcion">{{ tarea.descripcion }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="fecha_hora">Fecha y Hora *</label>
+            <input type="datetime-local" id="fecha_hora" name="fecha_hora" value="{{ tarea.fecha_hora|date:'Y-m-d\TH:i' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Estado</label>
+            <div class="estado-options">
+                <div class="estado-option creado">
+                    <input type="radio" id="estado_creado" name="estado" value="CREADO" {% if tarea.estado == 'CREADO' %}checked{% endif %}>
+                    <label for="estado_creado">Creado</label>
+                </div>
+                <div class="estado-option pendiente">
+                    <input type="radio" id="estado_pendiente" name="estado" value="PENDIENTE" {% if tarea.estado == 'PENDIENTE' %}checked{% endif %}>
+                    <label for="estado_pendiente">Pendiente</label>
+                </div>
+                <div class="estado-option hecho">
+                    <input type="radio" id="estado_hecho" name="estado" value="HECHO" {% if tarea.estado == 'HECHO' %}checked{% endif %}>
+                    <label for="estado_hecho">Hecho</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <a href="{% url 'lista_tareas' %}" class="btn btn-secondary" style="background: #6c757d; color: white;">Cancelar</a>
+            <button type="submit" class="btn btn-success">Guardar Cambios</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

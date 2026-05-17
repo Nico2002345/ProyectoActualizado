@@ -1,0 +1,188 @@
+{% extends 'tareas/base.html' %}
+
+{% block title %}Lista de Tareas{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .tareas-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .tarea-card {
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 20px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .tarea-card::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 5px;
+        height: 100%;
+    }
+
+    .tarea-card.creado::before {
+        background: #dc3545;
+    }
+
+    .tarea-card.pendiente::before {
+        background: #ffc107;
+    }
+
+    .tarea-card.hecho::before {
+        background: #28a745;
+    }
+
+    .tarea-card:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transform: translateY(-5px);
+    }
+
+    .tarea-titulo {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .tarea-descripcion {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 15px;
+        min-height: 40px;
+    }
+
+    .tarea-fecha {
+        color: #999;
+        font-size: 13px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .tarea-acciones {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .tarea-acciones .btn {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+
+    .estado-selector {
+        display: flex;
+        gap: 5px;
+        margin-top: 10px;
+    }
+
+    .estado-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .estado-btn:hover {
+        transform: scale(1.1);
+        border-color: #999;
+    }
+
+    .estado-btn.creado {
+        background: #dc3545;
+    }
+
+    .estado-btn.pendiente {
+        background: #ffc107;
+    }
+
+    .estado-btn.hecho {
+        background: #28a745;
+    }
+
+    .estado-btn.active {
+        border-color: #333;
+        border-width: 3px;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        color: #999;
+    }
+
+    .empty-state h3 {
+        margin-bottom: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h1>Gestor de Tareas</h1>
+    <a href="{% url 'crear_tarea' %}" class="btn btn-primary">+ Nueva Tarea</a>
+</div>
+
+{% if tareas %}
+<div class="tareas-grid">
+    {% for tarea in tareas %}
+    <div class="tarea-card {{ tarea.estado|lower }}">
+        <div class="tarea-titulo">{{ tarea.titulo }}</div>
+        <div class="tarea-descripcion">{{ tarea.descripcion|default:"Sin descripción" }}</div>
+        <div class="tarea-fecha">
+            📅 {{ tarea.fecha_hora|date:"d/m/Y H:i" }}
+        </div>
+        <div class="estado-badge estado-{{ tarea.estado }}">{{ tarea.get_estado_display }}</div>
+
+        <div class="estado-selector">
+            <form method="post" action="{% url 'cambiar_estado' tarea.pk %}" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="estado" value="CREADO">
+                <button type="submit" class="estado-btn creado {% if tarea.estado == 'CREADO' %}active{% endif %}" title="Creado"></button>
+            </form>
+            <form method="post" action="{% url 'cambiar_estado' tarea.pk %}" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="estado" value="PENDIENTE">
+                <button type="submit" class="estado-btn pendiente {% if tarea.estado == 'PENDIENTE' %}active{% endif %}" title="Pendiente"></button>
+            </form>
+            <form method="post" action="{% url 'cambiar_estado' tarea.pk %}" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="estado" value="HECHO">
+                <button type="submit" class="estado-btn hecho {% if tarea.estado == 'HECHO' %}active{% endif %}" title="Hecho"></button>
+            </form>
+        </div>
+
+        <div class="tarea-acciones">
+            <a href="{% url 'editar_tarea' tarea.pk %}" class="btn btn-warning">Editar</a>
+            <a href="{% url 'eliminar_tarea' tarea.pk %}" class="btn btn-danger">Eliminar</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <h3>No hay tareas todavía</h3>
+    <p>Comienza creando tu primera tarea</p>
+    <a href="{% url 'crear_tarea' %}" class="btn btn-primary" style="margin-top: 20px;">+ Crear Primera Tarea</a>
+</div>
+{% endif %}
+{% endblock %}
